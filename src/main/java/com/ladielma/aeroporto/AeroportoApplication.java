@@ -3,7 +3,12 @@ package com.ladielma.aeroporto;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+
+@SpringBootApplication //Conbina as três abaixo
+
+// @Configuration - Permite a criação dos bins
+// @EnableAutoConfiguration - Permite a configuração automática do spring
+// @ComponentScan - Permite que o spring escaneie todo o projeto
 public class AeroportoApplication {
 
 	public static void main(String[] args) {
