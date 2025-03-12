@@ -1,10 +1,11 @@
 package com.ladielma.aeroporto.classes;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Voo {
     private String idVoo;
-    private String horario;
+    private LocalDateTime horario;
     private Terminal terminal;
     private String chegadaDestino;
     private Companhia companhia;
@@ -17,7 +18,7 @@ public class Voo {
         A, B, C;
     }
 
-    public Voo(String idVoo, String horario, Terminal terminal, String chegadaDestino, Companhia companhia, StatusVoo status, Aviao aviao, Assento[] assentos) {
+    public Voo(String idVoo, LocalDateTime horario, Terminal terminal, String chegadaDestino, Companhia companhia, StatusVoo status, Aviao aviao, Assento[] assentos) {
         this.idVoo = idVoo;
         this.horario = horario;
         this.terminal = terminal;
@@ -37,11 +38,11 @@ public class Voo {
         return idVoo;
     }
 
-    public void setHorario(String horario) {
+    public void setHorario(LocalDateTime horario) {
         this.horario = horario;
     }
 
-    public String getHorario() {
+    public LocalDateTime getHorario() {
         return horario;
     }
 
@@ -88,5 +89,5 @@ public class Voo {
     public static ArrayList<Voo> getVoos() {
         return voos;
     }
-    
+
 }

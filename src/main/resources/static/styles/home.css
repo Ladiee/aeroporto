@@ -1,0 +1,18 @@
+body {
+    background-image: url('/img/backhome.png'); /* Define a imagem */
+    background-size: cover; /* Ajusta a imagem para cobrir toda a tela */
+    background-position: center; /* Centraliza a imagem */
+    background-repeat: no-repeat; /* Evita repetição */
+}
+nav {
+    display: flex; 
+    justify-content: space-around; 
+}
+
+nav ul{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 10px;
+    list-style: none;
+}
