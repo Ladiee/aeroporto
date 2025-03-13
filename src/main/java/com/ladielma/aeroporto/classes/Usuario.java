@@ -10,6 +10,14 @@ public class Usuario extends Pessoa {
         this.senha = senha;
     }
 
+    public String getName() {
+        return this.nomeUsuario;
+    }
+
+    public String getSenha() {
+        return this.senha;
+    }
+
     public boolean logar(String nomeUsuario, String senha) {
         return this.nomeUsuario.equals(nomeUsuario) && this.senha.equals(senha);
     }

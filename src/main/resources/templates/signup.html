@@ -21,7 +21,7 @@
 
     <div class="card p-4 shadow-lg" style="width: 500px;">
         <h2 class="text-center">Crie sua conta aqui!</h2>
-        <form id="signupForm" action="/signup" method="POST">
+        <form id="signupForm" th:action="@{/signup}" method="POST">
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="emailS" class="form-label">Email</label>
@@ -119,5 +119,25 @@
           alert('Formulário enviado com sucesso!');
         });
         </script>
+
+<script>
+    $(document).ready(function(){
+        $("#signupForm").submit(function(event){
+            event.preventDefault(); // Evita o recarregamento da página
+            
+            let formData = $(this).serialize(); // Serializa os dados do formulário
+
+            
+            
+            $.post("/signup", formData, function(response) {
+                alert(response); // Exibe a resposta do servidor
+                $("#signupForm")[0].reset(); // Reseta o formulário após o envio
+            }).fail(function() {
+                alert("Erro ao enviar os dados.");
+            });
+        });
+    });
+</script>
+
 </body>
 </html>

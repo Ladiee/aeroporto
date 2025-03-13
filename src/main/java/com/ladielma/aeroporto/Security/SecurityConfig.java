@@ -14,14 +14,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                // Define como os usuários vao logar no sistema
-                .formLogin(formLogin -> {
-                    formLogin.loginPage("/login").permitAll();
-                    ;
-                })
                 // Define as regras de acesso para as partes da aplicação
                 .authorizeHttpRequests(authorizeRequests -> {
-                    authorizeRequests.requestMatchers("/", "/img/**", "/signup", "/styles/**", "/js/**", "/teste")
+                    authorizeRequests
+                            .requestMatchers("/", "/img/**", "/signup", "/styles/**", "/js/**", "/teste", "/login")
                             .permitAll();
                     authorizeRequests.anyRequest().authenticated();
 
