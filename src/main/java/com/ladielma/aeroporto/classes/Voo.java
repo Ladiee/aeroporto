@@ -14,11 +14,57 @@ public class Voo {
     private static ArrayList<Voo> voos = new ArrayList<Voo>();
     private Assento[] assentos;
 
+    Companhia companhia1 = new Companhia(
+        "Latam Airlines",   // Nome
+        "LA",              // Código IATA
+        "LAN",             // Código ICAO
+        "Brasil",          // País
+        "+55 11 4002-5700" // Contato
+    );
+
+    Companhia companhia2 = new Companhia(
+        "Gol Linhas Aéreas", // Nome
+        "G3",                // Código IATA
+        "GLO",               // Código ICAO
+        "Brasil",            // País
+        "+55 11 5504-4410"   // Contato
+    );
+
+    Aviao aviao1 = new Aviao(
+        "Boeing 737-800",  // Modelo
+        "Boeing",          // Fabricante
+        180,               // Capacidade total
+        180,               // Quantidade total de assentos
+        150,               // Assentos econômicos
+        24,                // Assentos executivos
+        6                  // Assentos primeira classe
+    );
+
+    Aviao aviao2 = new Aviao(
+        "Airbus A320",     // Modelo
+        "Airbus",          // Fabricante
+        160,               // Capacidade total
+        160,               // Quantidade total de assentos
+        130,               // Assentos econômicos
+        24,                // Assentos executivos
+        6                  // Assentos primeira classe
+    );
+
+    Voo voo1 = new Voo(
+            "LA1234",
+            LocalDateTime.of(2025, 5, 15, 14, 30),
+            Terminal.A,
+            "São Paulo - GRU",
+            companhia1,
+            StatusVoo.CONFIRMADO,
+            aviao1
+        );
+
     public enum Terminal{
         A, B, C;
     }
 
-    public Voo(String idVoo, LocalDateTime horario, Terminal terminal, String chegadaDestino, Companhia companhia, StatusVoo status, Aviao aviao, Assento[] assentos) {
+    public Voo(String idVoo, LocalDateTime horario, Terminal terminal, String chegadaDestino, Companhia companhia, StatusVoo status, Aviao aviao) {
         this.idVoo = idVoo;
         this.horario = horario;
         this.terminal = terminal;
@@ -26,7 +72,9 @@ public class Voo {
         this.companhia = companhia;
         this.statusVoo = status;
         this.aviao = aviao;
-        this.assentos = assentos;
+        for (int i = 0; i < aviao.getQtdAssentos(); i++) {
+            this.assentos[i]= new Assento(i, false);
+        }
         voos.add(this);
     }
 
