@@ -6,21 +6,31 @@ body{
     backdrop-filter: blur(2px);
 }
 
+.container {
+    display: flex;
+    flex-direction: column; /* Garante que as divs fiquem uma em cima da outra */
+    align-items: center; /* Centraliza no meio da página (opcional) */
+}
+
 #error-message{
-    position: fixed;
-    top: 0;
-    margin-top: 2%;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 10px;
-    padding: 10px;
+    border-radius: 10px !important;
+    padding: 5px;
 }
 
 .card {
     background-color: rgba(255, 255, 255, 0.2) !important; /* Branco com 50% de transparência */
     border-color: white !important;
+    width: auto;
 }
 
 a{
-    color: aliceblue !important;
+    color: black !important;
+}
+
+.escolha-sexo{
+    background-color: #FFFFFF;
+    margin-top: 4%;
+    height: 70px;
+    padding-left: 5px;
+    border-radius: 5px;
 }

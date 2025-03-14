@@ -25,11 +25,6 @@ public class PagesController {
         return "teste";
     }
 
-    @GetMapping("/login2")
-    public String login2() {
-        return "login2";
-    }
-
     // Controle das páginas html para login e signup
     @GetMapping("/login")
     public String login() {
