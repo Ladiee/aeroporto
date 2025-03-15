@@ -4,16 +4,16 @@ import java.util.ArrayList;
 
 public class Funcionario extends Usuario {
     private String nome;
-    private String pix;
+    private String pis;
     private String dataNascimento;
-    private ArrayList<Funcionario> funcionarios;
+    private ArrayList<Funcionario> funcionarios = new ArrayList<>();
 
-    public Funcionario(String nome, String email, String telefone, String nomeUsuario, String senha, String pix, String dataNascimento) {
+    public Funcionario(String nome, String email, String telefone, String nomeUsuario, String senha, String pis, String dataNascimento) {
         super(nome, email, telefone, nomeUsuario, senha);
         this.nome = nome;
-        this.pix = pix;
+        this.pis = pis;
         this.dataNascimento = dataNascimento;
-        this.funcionarios = new ArrayList<>();
+        funcionarios.add(this);
     }
 
     public void cadastrarNovoVoo(String idVoo, String horario, Voo.Terminal terminal, String chegadaDestino, Companhia companhia, Aviao aviao) {
