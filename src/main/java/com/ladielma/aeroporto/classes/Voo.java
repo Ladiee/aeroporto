@@ -4,17 +4,25 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Voo {
+    enum StatusVoo {
+        ATRASADO, CANCELADO, CONFIRMADO, EMBARQUE_PROXIMO, EMBARQUE_IMEDIATO, POUSANDO, EM_SOLO;
+    }
+
     private String idVoo;
+    private boolean chegando;
     private LocalDateTime horario;
     private Terminal terminal;
-    private String chegadaDestino;
+    private String origemDestino;
     private Companhia companhia;
     private StatusVoo statusVoo;
     private Aviao aviao;
-    private static ArrayList<Voo> voos = new ArrayList<Voo>();
+    private static ArrayList<Voo> chegadas = new ArrayList<>();
+    private static ArrayList<Voo> saidas = new ArrayList<>();
     private Assento[] assentos;
 
-    Companhia companhia1 = new Companhia(
+
+    static{
+        Companhia companhia1 = new Companhia(
         "Latam Airlines",   // Nome
         "LA",              // Código IATA
         "LAN",             // Código ICAO
@@ -33,7 +41,6 @@ public class Voo {
     Aviao aviao1 = new Aviao(
         "Boeing 737-800",  // Modelo
         "Boeing",          // Fabricante
-        180,               // Capacidade total
         180,               // Quantidade total de assentos
         150,               // Assentos econômicos
         24,                // Assentos executivos
@@ -43,7 +50,6 @@ public class Voo {
     Aviao aviao2 = new Aviao(
         "Airbus A320",     // Modelo
         "Airbus",          // Fabricante
-        160,               // Capacidade total
         160,               // Quantidade total de assentos
         130,               // Assentos econômicos
         24,                // Assentos executivos
@@ -52,30 +58,42 @@ public class Voo {
 
     Voo voo1 = new Voo(
             "LA1234",
+            false,
             LocalDateTime.of(2025, 5, 15, 14, 30),
             Terminal.A,
-            "São Paulo - GRU",
+            "São Paulo",
             companhia1,
             StatusVoo.CONFIRMADO,
             aviao1
         );
+    
+    Voo voo2 = new Voo(
+        "2345", true, LocalDateTime.of(2025, 5, 14, 13, 0), Terminal.B, "Rio de Janeiro", companhia2, StatusVoo.CANCELADO, aviao2);
+    }
 
     public enum Terminal{
         A, B, C;
     }
 
-    public Voo(String idVoo, LocalDateTime horario, Terminal terminal, String chegadaDestino, Companhia companhia, StatusVoo status, Aviao aviao) {
+
+    public Voo(String idVoo, boolean chegando, LocalDateTime horario, Terminal terminal, String origemDestino, Companhia companhia, StatusVoo status, Aviao aviao) {
         this.idVoo = idVoo;
+        this.chegando = chegando;
+        if (chegando) {
+            chegadas.add(this);
+        } else {
+            saidas.add(this);
+        }
         this.horario = horario;
         this.terminal = terminal;
-        this.chegadaDestino = chegadaDestino;
+        this.origemDestino = origemDestino;
         this.companhia = companhia;
         this.statusVoo = status;
         this.aviao = aviao;
+        this.assentos = new Assento[aviao.getQtdAssentos()];
         for (int i = 0; i < aviao.getQtdAssentos(); i++) {
-            this.assentos[i]= new Assento(i, false);
+            this.assentos[i]= new Assento(i+1);
         }
-        voos.add(this);
     }
 
     public void setIdVoo(String idVoo) {
@@ -102,12 +120,12 @@ public class Voo {
         return terminal;
     }
 
-    public void setChegadaDestino(String chegadaDestino) {
-        this.chegadaDestino = chegadaDestino;
+    public void setOrigemDestino(String origemDestino) {
+        this.origemDestino = origemDestino;
     }
 
-    public String getChegadaDestino() {
-        return chegadaDestino;
+    public String getOrigemDestino() {
+        return origemDestino;
     }
 
     public void setCompanhia(Companhia companhia) {
@@ -134,8 +152,41 @@ public class Voo {
         return aviao;
     }
 
-    public static ArrayList<Voo> getVoos() {
-        return voos;
+    public Assento[] getAssentos() {
+        return assentos;
+    }
+
+    public static ArrayList<Voo> getChegadas() {
+        return chegadas;
+    }
+
+    public static ArrayList<Voo> getSaidas(){
+        return saidas;
+    }
+
+    public boolean getChegando(){
+        return chegando;
+    }
+
+    public String getStatusVooFormatado() {
+        switch (statusVoo) {
+            case ATRASADO:
+                return "ATRASADO";
+            case CANCELADO:
+                return "CANCELADO";
+            case CONFIRMADO:
+                return "CONFIRMADO";
+            case EMBARQUE_IMEDIATO:
+                return "EMBARQUE IMEDIATO";
+            case EMBARQUE_PROXIMO:
+                return "EMBARQUE PRÓXIMO";
+            case POUSANDO:
+                return "POUSANDO";
+            case EM_SOLO:
+                return "EM SOLO";
+            default:
+                return "DESCONHECIDO";
+        }
     }
 
 }

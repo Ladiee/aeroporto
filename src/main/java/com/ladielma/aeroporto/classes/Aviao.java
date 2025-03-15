@@ -3,16 +3,14 @@ package com.ladielma.aeroporto.classes;
 public class Aviao {
     private String modelo;
     private String fabricante;
-    private int capacidade;
     private int qtdAssentos;
     private int qtdAssentosEconomicos;
     private int qtdAssentosExecutivos;
     private int qtdAssentosPrimeiraClasse;
 
-    public Aviao(String modelo, String fabricante, int capacidade, int qtdAssentos, int qtdAssentosEconomicos, int qtdAssentosExecutivos, int qtdAssentosPrimeiraClasse) {
+    public Aviao(String modelo, String fabricante, int qtdAssentos, int qtdAssentosEconomicos, int qtdAssentosExecutivos, int qtdAssentosPrimeiraClasse) {
         this.modelo = modelo;
         this.fabricante = fabricante;
-        this.capacidade = capacidade;
         this.qtdAssentos = qtdAssentos;
         this.qtdAssentosEconomicos = qtdAssentosEconomicos;
         this.qtdAssentosExecutivos = qtdAssentosExecutivos;
@@ -33,14 +31,6 @@ public class Aviao {
 
     public String getFabricante() {
         return fabricante;
-    }
-
-    public void setCapacidade(int capacidade) {
-        this.capacidade = capacidade;
-    }
-
-    public int getCapacidade() {
-        return capacidade;
     }
 
     public void setQtdAssentos(int qtdAssentos) {
@@ -75,5 +65,5 @@ public class Aviao {
         return qtdAssentosPrimeiraClasse;
     }
 
-    
+
 }

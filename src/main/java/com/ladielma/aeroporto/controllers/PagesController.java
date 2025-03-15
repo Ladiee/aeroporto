@@ -11,10 +11,17 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.ladielma.aeroporto.classes.Aviao;
 import com.ladielma.aeroporto.classes.Cliente;
+import com.ladielma.aeroporto.classes.Companhia;
 import com.ladielma.aeroporto.classes.Sexo;
+import com.ladielma.aeroporto.classes.StatusVoo;
 import com.ladielma.aeroporto.classes.Voo;
+import com.ladielma.aeroporto.classes.Voo.Terminal;
 
 @Controller
 public class PagesController {
@@ -22,8 +29,10 @@ public class PagesController {
     // Controle da home
     @GetMapping("/")
     public String listarVoos(Model model) {
-        model.addAttribute("voos", Voo.getVoos());
-
+        System.out.println("Quantidade de saidas voos: " + Voo.getSaidas().size());
+        System.out.println("Quantidade de entradas voos: " + Voo.getChegadas().size());
+        model.addAttribute("chegadas", Voo.getChegadas());
+        model.addAttribute("saidas", Voo.getSaidas());
         return "home";
     }
 

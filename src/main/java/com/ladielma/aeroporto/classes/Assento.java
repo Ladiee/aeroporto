@@ -9,9 +9,9 @@ public class Assento {
         ECONOMICA, EXECUTIVA, PRIMEIRA_CLASSE;
     }
 
-    public Assento(int idAssento, boolean ocupado) {
+    public Assento(int idAssento) {
         this.idAssento = idAssento;
-        this.ocupado = ocupado;
+        this.ocupado = false;
     }
 
     public int getIdAssento() {

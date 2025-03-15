@@ -42,35 +42,123 @@
         </nav>
     </header>
 
+    <div class="container-voos">
+        <h1>ENCONTRE <span>SEU VOO</span></h1>
+        
+        <div class="voos-container">
+            <div class="voos-card chegadas">
+                <h2 class="h2-voo">✈️ CHEGADAS</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cia.</th>
+                            <th>N. Voo</th>
+                            <th>Horário</th>
+                            <th>Origem</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="voo : ${chegadas}">
+                            <td th:text="${voo.companhia.nome}"></td>
+                            <td th:text="${voo.idVoo}"></td>
+                            <td th:text="${#temporals.format(voo.horario, 'HH:mm')}"></td>
+                            <td th:text="${voo.getOrigemDestino()}"></td>
+                            <td th:text="${voo.statusVooFormatado}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-    <div class="div-voo">
-        <div class="div-voo-img">
-            <!-- Colocar uma imagem, sei lá-->
+            <div class="voos-card saidas">
+                <h2 class="h2-voo">✈️ SAÍDAS</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cia.</th>
+                            <th>N. Voo</th>
+                            <th>Horário</th>
+                            <th>Destino</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="voo : ${saidas}">
+                            <td th:text="${voo.companhia.nome}"></td>
+                            <td th:text="${voo.idVoo}"></td>
+                            <td th:text="${#temporals.format(voo.horario, 'HH:mm')}"></td>
+                            <td th:text="${voo.origemDestino}"></td>
+                            <td th:text="${voo.statusVooFormatado}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="div-voo-table">
-            <table class="table-voo">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Companhia</th>
-                        <th>ID</th>
-                        <th>Destino</th>
-                        <th>Horário</th>
-                        <th>Status</th>
-                        <th>Terminal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Thymeleaf irá iterar sobre a lista de voos -->
-                    <tr th:each="voo : ${voos}">
-                        <td th:text="${voo.companhia}"></td>
-                        <td th:text="${voo.idVoo}"></td>
-                        <td th:text="${voo.chegadaDestino}"></td>
-                        <td th:text="${voo.horario}"></td>
-                        <td th:text="${voo.statusVoo}"></td>
-                        <td th:text="${voo.terminal}"></td>
-                    </tr>
-                </tbody>
-            </table>
+    </div>
+
+    <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-4xl mx-auto mt-20">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                
+            <!-- TRECHO -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">TRECHO</label>
+                <select class="w-full p-2 border rounded">
+                    <option selected>Ida e volta</option>
+                    <option>Somente ida</option>
+                </select>
+            </div>
+
+            <!-- SAINDO DE -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">SAINDO DE</label>
+                <input type="text" class="w-full p-2 border rounded" value="Belém - BEL">
+            </div>
+
+            <!-- INDO PARA -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">INDO PARA</label>
+                <input type="text" class="w-full p-2 border rounded" value="São Paulo - Guarulhos - GRU">
+            </div>
+
+            <!-- VIAJANTES -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">VIAJANTES</label>
+                <select class="w-full p-2 border rounded">
+                    <option selected>1 Adulto(s)</option>
+                    <option>2 Adultos</option>
+                    <option>3 Adultos</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+            <!-- DATA DA IDA -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">DATA DA VIAGEM DE IDA</label>
+                <input type="date" class="w-full p-2 border rounded">
+            </div>
+
+            <!-- DATA DA VOLTA -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">DATA DA VIAGEM DE VOLTA</label>
+                <input type="date" class="w-full p-2 border rounded">
+            </div>
+        </div>
+
+        <!-- OPÇÕES ADICIONAIS -->
+        <div class="flex items-center justify-between mt-4">
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" class="w-4 h-4">
+                <span class="text-sm">Estou viajando a trabalho</span>
+            </label>
+            <a href="#" class="text-orange-600 text-sm hover:underline">Inserir um código promocional</a>
+        </div>
+
+        <!-- BOTÃO DE BUSCA -->
+        <div class="mt-4 text-right">
+            <button class="bg-orange-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-orange-600">
+                BUSCAR VOOS
+            </button>
         </div>
     </div>
 
