@@ -4,11 +4,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.ladielma.aeroporto.classes.Cliente;
+
 import java.io.*;
 
 @RestController
 @RequestMapping("/login")
 public class LoginController {
+
+    private String email;
 
     @PostMapping
     public RedirectView acesso(@RequestParam String email, @RequestParam String password, RedirectAttributes red) {
@@ -17,6 +21,11 @@ public class LoginController {
             while ((line = reader.readLine()) != null) {
                 String[] dados = line.split(", ");
                 if (dados[0].equals(email) && dados[7].equals(password)) {
+                    this.setEmail(email);
+
+                    Cliente cliente = new Cliente(dados[1], dados[0], dados[2], dados[3], dados[7], dados[4], dados[5],
+                            dados[6], null, 0);
+                    cliente.adicionarCliente(cliente);
                     return new RedirectView("/");
                 }
             }
@@ -24,7 +33,16 @@ public class LoginController {
             red.addFlashAttribute("erro", "Erro ao tentar acessar a conta");
             return new RedirectView("/login");
         }
+
         red.addFlashAttribute("erro", "Email ou senha incorretos");
         return new RedirectView("/login");
+    }
+
+    public String salvarEmail(String email) {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

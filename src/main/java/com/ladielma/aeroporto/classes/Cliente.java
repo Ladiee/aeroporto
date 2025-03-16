@@ -14,7 +14,7 @@ public class Cliente extends Usuario {
     private String nacionalidade;
     private Sexo sexo;
     private ArrayList<Reserva> viagens;
-    private ArrayList<Cliente> clientes;
+    private static ArrayList<Cliente> clientes = new ArrayList<>();
     private int pontos;
 
     public Cliente(String nome, String email, String telefone, String nomeUsuario, String senha, String dataNascimento,
@@ -25,8 +25,15 @@ public class Cliente extends Usuario {
         this.nacionalidade = nacionalidade;
         this.sexo = sexo;
         this.viagens = new ArrayList<>();
-        this.clientes = new ArrayList<>();
         this.pontos = pontos;
+    }
+
+    public void adicionarCliente(Cliente cliente) {
+        clientes.add(cliente);
+    }
+
+    public void removerCliente(Cliente cliente) {
+        clientes.remove(cliente);
     }
 
     public String getDataNascimento() {
@@ -43,6 +50,10 @@ public class Cliente extends Usuario {
 
     public Sexo getSexo() {
         return this.sexo;
+    }
+
+    public static ArrayList<Cliente> getClientes() {
+        return clientes;
     }
 
     public void mostrarHistorico() {
