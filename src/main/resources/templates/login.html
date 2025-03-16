@@ -10,7 +10,11 @@
 </head>
 
 <body class="d-flex justify-content-center align-items-center vh-100 bg-light">
-    <div class="card p-4 shadow-lg" style="width: 350px;">
+<div class="container">   
+    <div th:if="${erro}" class="alert alert-danger text-center" style="background-color: rgb(253, 115, 115);">
+        <p th:text="${erro}"></p>
+    </div>
+    <div class="card p-4 shadow-lg" style="max-width: 350px;">
         <h2 class="text-center">Faça seu login!</h2>
         <form id="loginForm" th:action="@{/login}" method="POST">
             <div class="mb-3">
@@ -26,33 +30,7 @@
         <p class="text-center"><a th:href="@{/signup}"><strong>Não possui uma conta? clique aqui para criar!</strong></a></p> 
         <p class="text-center"><a href="#"><strong>Esqueceu a senha?</strong></a></p>
     </div>
-
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-        
-          // Caso tudo esteja correto, o formulário é enviado
-          alert(document.getElementById('email').value);
-        });
-    </script>
-
-<script>
-    $(document).ready(function(){
-        $("#loginForm").submit(function(event){
-            event.preventDefault(); // Evita o recarregamento da página
-            
-            let formData = $(this).serialize(); // Serializa os dados do formulário
-
-            alert(formData); // Exibe os dados do formulário
-            
-            $.post("/login", formData, function(response) {
-                alert(response); // Exibe a resposta do servidor
-                $("#loginForm")[0].reset(); // Reseta o formulário após o envio
-            }).fail(function() {
-                alert("Erro ao enviar os dados.");
-            });
-        });
-    });
-</script>
+</div>
 
 </body>
 </html>

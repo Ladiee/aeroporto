@@ -10,6 +10,7 @@ body{
     display: flex;
     flex-direction: column; /* Garante que as divs fiquem uma em cima da outra */
     align-items: center; /* Centraliza no meio da página (opcional) */
+    flex: 1; /* Faz o conteúdo expandir sem empurrar o footer para fora */
 }
 
 #error-message{
@@ -20,17 +21,9 @@ body{
 .card {
     background-color: rgba(255, 255, 255, 0.2) !important; /* Branco com 50% de transparência */
     border-color: white !important;
-    width: auto;
+    height: auto;
 }
 
 a{
     color: black !important;
-}
-
-.escolha-sexo{
-    background-color: #FFFFFF;
-    margin-top: 4%;
-    height: 70px;
-    padding-left: 5px;
-    border-radius: 5px;
 }
