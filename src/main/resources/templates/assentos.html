@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assento do Voo</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-image: url('/img/intplane.webp');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            margin: 0;
+        }
+        header {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        .logo span {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+        h1 {
+            margin: 20px;
+            padding: 10px;
+            border: 2px solid #000;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+        .airplane-seating {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80%;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .row {
+            display: flex;
+            justify-content: center;
+            margin: 5px 0;
+        }
+        .seat {
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+            background-color: #444;
+            border-radius: 5px;
+        }
+        .seat.occupied {
+            background-color: #fff;
+            cursor: not-allowed;
+        }
+        .seat.vip {
+            background-color: gold;
+        }
+        .seat-input {
+            display: none;
+        }
+        .seat-label {
+            cursor: pointer;
+        }
+        .seat-input:checked + .seat-label {
+            background-color: #6feaf6;
+            border: 2px solid #000;
+        }
+        .selected-count {
+            margin: 20px;
+            padding: 10px;
+            border: 2px solid #000;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+        .legend {
+            margin: 20px;
+            padding: 10px;
+            border: 2px solid #000;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #333;
+            display: flex;
+            justify-content: space-around;
+            width: 80%;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border-radius: 3px;
+        }
+        .color-available {
+            background-color: #444;
+        }
+        .color-occupied {
+            background-color: #fff;
+            border: 1px solid #000;
+        }
+        .color-vip {
+            background-color: gold;
+        }
+        .color-selected {
+            background-color: #6feaf6;
+            border: 2px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="/img/logo-aig.png" alt="Logo site" />
+                <span>Aeroporto Internacional do Guamá</span>
+            </div>
+        </nav>
+    </header>
+    <h1>Assento do Voo</h1>
+    <form action="/submit-seats" method="POST">
+        <div class="selected-count">Assentos selecionados: <span id="selectedCount">0</span></div>
+        <div class="airplane-seating">
+            <!-- VIP Rows -->
+            <div class="row">
+                <input type="checkbox" id="seat1" name="seat1" class="seat-input">
+                <label for="seat1" class="seat seat-label vip"></label>
+                <input type="checkbox" id="seat2" name="seat2" class="seat-input">
+                <label for="seat2" class="seat seat-label vip"></label>
+                <input type="checkbox" id="seat3" name="seat3" class="seat-input">
+                <label for="seat3" class="seat seat-label vip"></label>
+                <div style="width: 50px;"></div> <!-- Space between seats -->
+                <input type="checkbox" id="seat4" name="seat4" class="seat-input">
+                <label for="seat4" class="seat seat-label vip"></label>
+                <input type="checkbox" id="seat5" name="seat5" class="seat-input">
+                <label for="seat5" class="seat seat-label vip"></label>
+                <input type="checkbox" id="seat6" name="seat6" class="seat-input">
+                <label for="seat6" class="seat seat-label vip"></label>
+            </div>
+
+            <!-- Normal Rows -->
+            <div class="row">
+                <input type="checkbox" id="seat7" name="seat7" class="seat-input">
+                <label for="seat7" class="seat seat-label"></label>
+                <input type="checkbox" id="seat8" name="seat8" class="seat-input">
+                <label for="seat8" class="seat seat-label"></label>
+                <input type="checkbox" id="seat9" name="seat9" class="seat-input">
+                <label for="seat9" class="seat seat-label"></label>
+                <div style="width: 50px;"></div> <!-- Space between seats -->
+                <input type="checkbox" id="seat10" name="seat10" class="seat-input">
+                <label for="seat10" class="seat seat-label"></label>
+                <input type="checkbox" id="seat11" name="seat11" class="seat-input">
+                <label for="seat11" class="seat seat-label"></label>
+                <input type="checkbox" id="seat12" name="seat12" class="seat-input">
+                <label for="seat12" class="seat seat-label"></label>
+            </div>
+            <div class="row">
+                <input type="checkbox" id="seat13" name="seat13" class="seat-input">
+                <label for="seat13" class="seat seat-label"></label>
+                <input type="checkbox" id="seat14" name="seat14" class="seat-input">
+                <label for="seat14" class="seat seat-label"></label>
+                <input type="checkbox" id="seat15" name="seat15" class="seat-input" disabled>
+                <label for="seat15" class="seat seat-label occupied"></label>
+                <div style="width: 50px;"></div> <!-- Space between seats -->
+                <input type="checkbox" id="seat16" name="seat16" class="seat-input">
+                <label for="seat16" class="seat seat-label"></label>
+                <input type="checkbox" id="seat17" name="seat17" class="seat-input">
+                <label for="seat17" class="seat seat-label"></label>
+                <input type="checkbox" id="seat18" name="seat18" class="seat-input">
+                <label for="seat18" class="seat seat-label"></label>
+            </div>
+            <div class="row">
+                <input type="checkbox" id="seat19" name="seat19" class="seat-input">
+                <label for="seat19" class="seat seat-label"></label>
+                <input type="checkbox" id="seat20" name="seat20" class="seat-input">
+                <label for="seat20" class="seat seat-label"></label>
+                <input type="checkbox" id="seat21" name="seat21" class="seat-input" disabled>
+                <label for="seat21" class="seat seat-label occupied"></label>
+                <div style="width: 50px;"></div> <!-- Space between seats -->
+                <input type="checkbox" id="seat22" name="seat22" class="seat-input">
+                <label for="seat22" class="seat seat-label"></label>
+                <input type="checkbox" id="seat23" name="seat23" class="seat-input">
+                <label for="seat23" class="seat seat-label"></label>
+                <input type="checkbox" id="seat24" name="seat24" class="seat-input">
+                <label for="seat24" class="seat seat-label"></label>
+            </div>
+            <div class="row">
+                <input type="checkbox" id="seat25" name="seat25" class="seat-input">
+                <label for="seat25" class="seat seat-label"></label>
+                <input type="checkbox" id="seat26" name="seat26" class="seat-input">
+                <label for="seat26" class="seat seat-label"></label>
+                <input type="checkbox" id="seat27" name="seat27" class="seat-input">
+                <label for="seat27" class="seat seat-label"></label>
+                <div style="width: 50px;"></div> <!-- Space between seats -->
+                <input type="checkbox" id="seat28" name="seat28" class="seat-input">
+                <label for="seat28" class="seat seat-label"></label>
+                <input type="checkbox" id="seat29" name="seat29" class="seat-input">
+                <label for="seat29" class="seat seat-label"></label>
+                <input type="checkbox" id="seat30" name="seat30" class="seat-input" disabled>
+                <label for="seat30" class="seat seat-label occupied"></label>
+            </div>
+            <div class="row">
+                <input type="checkbox" id="seat31" name="seat31" class="seat-input">
+                <label for="seat31" class="seat seat-label"></label>
+                <input type="checkbox" id="seat32" name="seat32" class="seat-input">
+                <label for="seat32" class="seat seat-label"></label>
+                <input type="checkbox" id="seat33" name="seat33" class="seat-input">
+                <label for="seat33" class="seat seat-label"></label>
+                <div style="width: 50px;"></div> <!-- Space between seats -->
+                <input type="checkbox" id="seat34" name="seat34" class="seat-input">
+                <label for="seat34" class="seat seat-label"></label>
+                <input type="checkbox" id="seat35" name="seat35" class="seat-input">
+                <label for="seat35" class="seat seat-label"></label>
+                <input type="checkbox" id="seat36" name="seat36" class="seat-input" disabled>
+                <label for="seat36" class="seat seat-label occupied"></label>
+            </div>
+            <div class="row">
+                <input type="checkbox" id="seat37" name="seat37" class="seat-input">
+                <label for="seat37" class="seat seat-label"></label>
+                <input type="checkbox" id="seat38" name="seat38" class="seat-input">
+                <label for="seat38" class="seat seat-label"></label>
+                <input type="checkbox" id="seat39" name="seat39" class="seat-input">
+                <label for="seat39" class="seat seat-label"></label>
+                <div style="width: 50px;"></div> <!-- Space between seats -->
+                <input type="checkbox" id="seat40" name="seat40" class="seat-input">
+                <label for="seat40" class="seat seat-label"></label>
+                <input type="checkbox" id="seat41" name="seat41" class="seat-input">
+                <label for="seat41" class="seat seat-label"></label>
+                <input type="checkbox" id="seat42" name="seat42" class="seat-input" disabled>
+                <label for="seat42" class="seat seat-label occupied"></label>
+            </div>
+            <div class="row">
+                <input type="checkbox" id="seat43" name="seat43" class="seat-input">
+                <label for="seat43" class="seat seat-label"></label>
+                <input type="checkbox" id="seat44" name="seat44" class="seat-input" disabled>
+                <label for="seat44" class="seat seat-label occupied"></label>
+                <input type="checkbox" id="seat45" name="seat45" class="seat-input">
+                <label for="seat45" class="seat seat-label"></label>
+                <div style="width: 50px;"></div> <!-- Space between seats -->
+                <input type="checkbox" id="seat46" name="seat46" class="seat-input">
+                <label for="seat46" class="seat seat-label"></label>
+                <input type="checkbox" id="seat47" name="seat47" class="seat-input">
+                <label for="seat47" class="seat seat-label"></label>
+                <input type="checkbox" id="seat48" name="seat48" class="seat-input">
+                <label for="seat48" class="seat seat-label"></label>
+            </div>
+        </div>
+        <button type="submit">Reservar Assentos</button>
+    </form>
+    <div class="legend">
+        <div class="legend-item">
+            <div class="legend-color color-available"></div> <span>Disponível</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color color-occupied"></div> <span>Ocupado</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color color-vip"></div> <span>VIP</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color color-selected"></div> <span>Selecionado</span>
+        </div>
+    </div>
+    <script>
+        const seats = document.querySelectorAll('.seat-input');
+        const selectedCount = document.getElementById('selectedCount');
+
+        seats.forEach(seat => {
+            seat.addEventListener('change', () => {
+                const selectedSeats = document.querySelectorAll('.seat-input:checked');
+                selectedCount.textContent = selectedSeats.length;
+            });
+        });
+    </script>
+</body>
+</html>

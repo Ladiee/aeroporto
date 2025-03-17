@@ -54,4 +54,9 @@ public class PagesController {
     public String pagamento() {
         return "pagamento";
     }
+
+    @GetMapping("/assentos")
+    public String assentos() {
+        return "assentos";
+    }
 }

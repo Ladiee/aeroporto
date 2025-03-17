@@ -17,7 +17,7 @@ public class SecurityConfig {
                 // Define as regras de acesso para as partes da aplicação
                 .authorizeHttpRequests(authorizeRequests -> {
                     authorizeRequests
-                            .requestMatchers("/", "/img/**", "/signup", "/styles/**", "/js/**", "/teste", "/login", "/pagamento")
+                            .requestMatchers("/", "/img/**", "/signup", "/styles/**", "/js/**", "/teste", "/login", "/pagamento", "/assentos")
                             .permitAll();
                     authorizeRequests.anyRequest().authenticated();
 
