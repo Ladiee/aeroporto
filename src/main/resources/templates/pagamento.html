@@ -7,6 +7,8 @@
   <style>
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
     body {
       display: flex;
@@ -80,6 +82,8 @@
       padding: 15px 15px;
       border-radius: 5px;
       text-align: center;
+      cursor: pointer;
+      border: none;
     }
     .card-number-container {
       display: flex;
@@ -88,6 +92,9 @@
     .card-number-container input {
       width: 50px;
       text-align: center;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
     .expiration-container {
       display: flex;
@@ -96,6 +103,24 @@
     .expiration-container select {
       width: 80px;
       text-align: center;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    fieldset {
+      border: none;
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+    }
+    input[type="text"], input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
   </style>
 </head>
@@ -130,21 +155,21 @@
       </fieldset>
       <fieldset>
         <label for="card-holder">Titular do Cartão</label>
-        <input type="text" id="card-holder">
+        <input type="text" id="card-holder" required>
       </fieldset>
       <fieldset>
         <label for="card-expiration">Validade</label>
         <div class="expiration-container">
-          <select id="exp-month">
-            <option value="">Mês</option>
+          <select id="exp-month" required>
+            <option value="" disabled selected>Mês</option>
             <script>
               for (let i = 1; i <= 12; i++) {
                 document.write(`<option value="${i}">${i}</option>`);
               }
             </script>
           </select>
-          <select id="exp-year">
-            <option value="">Ano</option>
+          <select id="exp-year" required>
+            <option value="" disabled selected>Ano</option>
             <script>
               let year = new Date().getFullYear();
               for (let i = year; i <= year + 10; i++) {
@@ -156,9 +181,9 @@
       </fieldset>
       <fieldset>
         <label for="card-ccv">CCV</label>
-        <input type="text" id="card-ccv" maxlength="3">
+        <input type="text" id="card-ccv" maxlength="3" required>
       </fieldset>
-      <button class="btn">Enviar</button>
+      <button class="btn" type="submit">Enviar</button>
     </form>
   </div>
 </body>
