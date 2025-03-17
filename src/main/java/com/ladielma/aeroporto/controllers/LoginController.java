@@ -12,8 +12,6 @@ import java.io.*;
 @RequestMapping("/login")
 public class LoginController {
 
-    private String email;
-
     @PostMapping
     public RedirectView acesso(@RequestParam String email, @RequestParam String password, RedirectAttributes red) {
         try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/clientes.txt"))) {
@@ -21,7 +19,6 @@ public class LoginController {
             while ((line = reader.readLine()) != null) {
                 String[] dados = line.split(", ");
                 if (dados[0].equals(email) && dados[7].equals(password)) {
-                    this.setEmail(email);
 
                     Cliente cliente = new Cliente(dados[1], dados[0], dados[2], dados[3], dados[7], dados[4], dados[5],
                             dados[6], null, 0);
@@ -36,13 +33,5 @@ public class LoginController {
 
         red.addFlashAttribute("erro", "Email ou senha incorretos");
         return new RedirectView("/login");
-    }
-
-    public String salvarEmail(String email) {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }

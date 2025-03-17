@@ -35,13 +35,18 @@ public class PagesController {
 
     // Controle das páginas html para login e signup
     @GetMapping("/login")
-    public String login() {
-
+    public String login(Model model) {
+        System.out.println("Quantidade de clientes: " + Cliente.getClientes().size());
+        boolean clienteLogado = !Cliente.getClientes().isEmpty();
+        model.addAttribute("clienteLogado", clienteLogado);
         return "login";
     }
 
     @GetMapping("/signup")
-    public String signup() {
+    public String signup(Model model) {
+        System.out.println("Quantidade de clientes: " + Cliente.getClientes().size());
+        boolean clienteLogado = !Cliente.getClientes().isEmpty();
+        model.addAttribute("clienteLogado", clienteLogado);
         return "signup";
     }
 }

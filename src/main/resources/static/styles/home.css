@@ -5,6 +5,10 @@ body {
     background-repeat: no-repeat; /* Evita repetição */
 }
 
+#btnFechar:hover {
+    cursor: pointer;
+}
+
 .container {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* 2 colunas */

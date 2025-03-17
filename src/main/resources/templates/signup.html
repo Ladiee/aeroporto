@@ -15,7 +15,7 @@
 </head>
 
 
-<div class="container">
+<div th:if="${!clienteLogado}" class="container">
     <!-- Mensagem de erro visível caso exista -->
     <div th:if="${erro}" class="alert alert-danger text-center" style="background-color: rgb(235, 107, 107); margin-top: 10px;">
         <p th:text="${erro}"></p>
@@ -98,6 +98,15 @@
     </div>
 </div>
 
+<div th:unless="${!clienteLogado}" class="container">
+    <div class="card p-4 shadow-lg" style="max-width: 350px;">
+        <h2 class="text-center">Cliente logado!</h2>
+        <p class="text-center">Você já está logado!</p>
+        <a href="/" class="btn btn-danger w-100">Sair</a>
+    </div>
+
+</div>
+
 
 
 
@@ -109,7 +118,7 @@
     </script>
 
 
-    <!-- <script>
+    <script>
         document.getElementById('signupForm').addEventListener('submit', function(event) {
 
           // Coleta dos valores para verificação em front end
@@ -185,7 +194,7 @@
           }
         
         });
-        </script> -->
+        </script>
 
 <!-- <script>
     $(document).ready(function(){

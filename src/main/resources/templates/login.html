@@ -10,7 +10,7 @@
 </head>
 
 <body class="d-flex justify-content-center align-items-center vh-100 bg-light">
-<div class="container">   
+<div th:if="${!clienteLogado}" class="container">   
     <div th:if="${erro}" class="alert alert-danger text-center" style="background-color: rgb(253, 115, 115);">
         <p th:text="${erro}"></p>
     </div>
@@ -30,6 +30,15 @@
         <p class="text-center"><a th:href="@{/signup}"><strong>Não possui uma conta? clique aqui para criar!</strong></a></p> 
         <p class="text-center"><a href="#"><strong>Esqueceu a senha?</strong></a></p>
     </div>
+</div>
+
+<div th:unless="${!clienteLogado}" class="container">
+    <div class="card p-4 shadow-lg" style="max-width: 350px;">
+        <h2 class="text-center">Cliente logado!</h2>
+        <p class="text-center">Você já está logado!</p>
+        <a href="/" class="btn btn-danger w-100">Sair</a>
+    </div>
+
 </div>
 
 </body>
