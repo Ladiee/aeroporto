@@ -49,4 +49,9 @@ public class PagesController {
         model.addAttribute("clienteLogado", clienteLogado);
         return "signup";
     }
+
+    @GetMapping("/pagamento")
+    public String pagamento() {
+        return "pagamento";
+    }
 }
