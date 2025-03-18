@@ -1,0 +1,16 @@
+body{
+    background-color: #101828 !important;
+}
+
+form{
+    margin-top: 50px;
+    color: white
+}
+
+a{
+    color:#2B7FFF !important;
+}
+
+.card-btn{
+    background-color: #2B7FFF !important;
+}

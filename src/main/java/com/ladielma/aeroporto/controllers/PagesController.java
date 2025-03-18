@@ -21,16 +21,33 @@ public class PagesController {
         if (!Cliente.getClientes().isEmpty()) {
             System.out.println("clienteNome" + Cliente.getClientes().get(0).getNome());
             model.addAttribute("clienteNome", Cliente.getClientes().get(0).getNome());
+            model.addAttribute("clienteEmail", Cliente.getClientes().get(0).getEmail());
+            model.addAttribute("clienteTelefone", Cliente.getClientes().get(0).getTelefone());
+            // model.addAttribute("clientePontos",
+            // Cliente.getClientes().get(0).getPontos());
+
         } else {
             model.addAttribute("clienteNome", null);
         }
         return "home";
     }
 
-    @GetMapping("/teste")
-    public String teste() {
+    @GetMapping("/alterar-dados")
+    public String teste(Model model) {
+        boolean clienteLogado = !Cliente.getClientes().isEmpty();
+        model.addAttribute("clienteLogado", clienteLogado);
+        if (clienteLogado) {
+            System.out.println("clienteNome" + Cliente.getClientes().get(0).getNome());
+            model.addAttribute("clienteNome", Cliente.getClientes().get(0).getNome());
+            model.addAttribute("clienteEmail", Cliente.getClientes().get(0).getEmail());
+            model.addAttribute("clienteTelefone", Cliente.getClientes().get(0).getTelefone());
+            // model.addAttribute("clientePontos",
+            // Cliente.getClientes().get(0).getPontos());
 
-        return "teste";
+        } else {
+            model.addAttribute("clienteNome", null);
+        }
+        return "alterar-dados";
     }
 
     // Controle das páginas html para login e signup

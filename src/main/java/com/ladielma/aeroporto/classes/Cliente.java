@@ -1,13 +1,7 @@
 package com.ladielma.aeroporto.classes;
 
 import java.util.ArrayList;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
-@Getter
-@Setter
-@ToString
 public class Cliente extends Usuario {
     private String dataNascimento;
     private String cpf;
@@ -50,6 +44,10 @@ public class Cliente extends Usuario {
 
     public Sexo getSexo() {
         return this.sexo;
+    }
+
+    public int getPontos() {
+        return this.pontos;
     }
 
     public static ArrayList<Cliente> getClientes() {
