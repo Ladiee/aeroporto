@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alteração de dados</title>
+    <link rel="stylesheet" href="/styles/style-alterar.css">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <div>
+    <header>
+        <nav class="bg-white border-gray-200 dark:bg-gray-900">
+            <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <img src="/img/logo-aig.png" alt="Logo site" />
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Aeroporto Internacional do Guamá</span>
+            </a>
+            <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+                </svg>
+            </button>
+            <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+                <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                    <li th:if="${clienteNome}">
+                        <a href="#" id="abrirModal" class="block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500">
+                            Olá, <span th:text="${clienteNome}"></span>!
+                        </a>
+                    </li>
+                <li>
+                    <a href="#" class="block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Home</a>
+                </li>
+                <li>
+                    <a href="#" class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Aeroporto</a>
+                </li>
+                <li>
+                    <a href="#" class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Reservas</a>
+                </li>
+                <li>
+                    <a th:href="@{/login}" class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Login</a>
+                </li>
+                </ul>
+            </div>
+            </div>
+        </nav>
+    </header>
+    
+    <hr style="color: gray;;">
+<div th:if="${clienteLogado}">
+        <!-- Mensagem de erro visível caso exista -->
+        <div th:if="${erro}" class="alert alert-danger text-center" style="background-color: rgb(235, 107, 107); margin-top: 10px;">
+            <p th:text="${erro}"></p>
+        </div>
+        <!-- Mensagem de erro dinâmica -->
+        <div class="error-message d-none alert alert-danger text-center" style="background-color: rgb(235, 107, 107); margin-top: 10px;">
+            <p id="error-text"></p>
+        </div>
+    <form id="alterarForm" th:action="@{/alterar-dados}" method="POSt" class="max-w-lg mx-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md ">
+        <h1 class="text-xl font-bold text-gray-900 dark:text-white mb-4 text-center">Altere seus dados no formulário abaixo!</h1>
+    
+        <div class="mb-4">
+            <label for="nome" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nome</label>
+            <input type="text" id="nome" name="nome" th:value="${clienteNome}"
+                class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                placeholder="Digite seu novo nome">
+        </div>
+    
+        <div class="mb-4">
+            <label for="telefone" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Telefone</label>
+            <input type="text" id="telefone" name="telefone" th:value="${clienteTelefone}"
+                class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                placeholder="Digite seu novo telefone">
+        </div>
+    
+        <div class="mb-4">
+            <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+            <input type="text" id="email" name="email" th:value="${clienteEmail}" readonly
+                class="mt-1 block w-full p-2 border border-gray-300 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:text-white cursor-not-allowed"
+                placeholder="Digite seu novo email">
+        </div>
+    
+        <div class="flex justify-between items-center">
+            <button type="submit"
+                class="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg text-center transition">
+                Alterar
+            </button>
+        </div>
+    
+        <div class="mt-4 text-center">
+            <a th:href="@{/}"
+                class="text-blue-600 hover:underline dark:text-blue-400">
+                Voltar
+            </a>
+        </div>
+    </form>
+</div>
+
+<!-- Modal Flowbite -->
+<div id="modalCliente" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-screen bg-black bg-opacity-50">
+    <div class="relative w-full max-w-md mx-auto bg-white rounded-lg shadow dark:bg-gray-700">
+        <!-- Cabeçalho do Modal -->
+        <div class="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Bem-vindo, <span th:text="${clienteNome}"></span>!</h3>
+            <button type="button" id="fecharModal" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                ✕
+            </button>
+        </div>
+        <div class="flex items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600">
+            <form th:action="@{/}" method="post" style="width: 100%;">
+                <button type="submit" id="btnFechar" class="w-full text-white bg-red-500 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Logout</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:unless="${clienteLogado}">
+    <div class="container">
+        <form action="" method="post" class="max-w-lg mx-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md ">
+            <h1 class="text-xl font-bold text-gray-900 dark:text-white mb-4 text-center">Cliente não logado!</h1>
+        
+            <div class="mb-4">
+                <p class="block text-center font-medium text-gray-700 dark:text-gray-300">Você precisa estar logado para alterar seus dados!</p>
+                <div class="mt-4 text-center">
+                    <a th:href="@{/login}"
+                        class="text-blue-600 hover:underline dark:text-blue-400">
+                        Login
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const modal = document.getElementById("modalCliente");
+            const abrirModal = document.getElementById("abrirModal");
+            const fecharModal = document.getElementById("fecharModal");
+            const btnFechar = document.getElementById("btnFechar");
+    
+            abrirModal.addEventListener("click", function(event) {
+                event.preventDefault();
+                modal.classList.remove("hidden");
+                document.body.classList.add("overflow-hidden"); // Impede rolagem da página
+            });
+    
+            function fechar() {
+                modal.classList.add("hidden");
+                document.body.classList.remove("overflow-hidden"); // Restaura rolagem
+            }
+    
+            fecharModal.addEventListener("click", fechar);
+            btnFechar.addEventListener("click", fechar);
+            modal.addEventListener("click", function(event) {
+                if (event.target === modal) fechar(); // Fecha ao clicar fora
+            });
+        });
+    </script>
+
+<script>
+    document.getElementById('alterarForm').addEventListener('submit', function(event) {
+    // Coleta dos valores para verificação em front-end
+    const email = document.getElementById('email').value;
+    const nomeUsuario = document.getElementById('nome').value;
+    const phone = document.getElementById('telefone').value;
+
+    // Regex email
+    const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    // Regex nome (Nome e Sobrenome obrigatórios)
+    const regexNome = /^[A-Z][a-z]{2,}\s[A-Z][a-z]{2,}$/;
+    // Regex telefone
+    const phoneRegex = /^\(\d{2}\) \d{5}-\d{4}$/;
+
+    // Limpar qualquer mensagem de erro anterior
+    const errorMessageDiv = document.getElementsByClassName('error-message')[0]; // Corrigido
+    if (errorMessageDiv) {
+        errorMessageDiv.style.display = 'none';
+        document.getElementById('error-text').innerText = '';
+    }
+
+    if (!regexEmail.test(email)) {
+        document.getElementById('error-text').innerText = 'O email está no formato incorreto. Exemplo: exemplo@gmail.com';
+        errorMessageDiv.style.display = 'block';
+        event.preventDefault();
+        return;
+    }
+
+    if (!regexNome.test(nomeUsuario)) {
+        document.getElementById('error-text').innerText = 'O nome está no formato incorreto. Exemplo: Nome Sobrenome';
+        errorMessageDiv.style.display = 'block';
+        event.preventDefault();
+        return;
+    }
+
+    // Verificação do telefone
+    if (!phoneRegex.test(phone)) {
+        document.getElementById('error-text').innerText = 'O número de telefone está no formato incorreto. Exemplo: (XX) XXXXX-XXXX';
+        errorMessageDiv.style.display = 'block';
+        event.preventDefault();
+        return;
+    }
+});
+    </script>
+
+</body>
+</html>

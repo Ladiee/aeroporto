@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
-    <link rel="stylesheet" href="/styles/login.css">
+    <link rel="stylesheet" href="/styles/signup.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 
@@ -14,75 +14,97 @@
 
 </head>
 
-<body class="d-flex justify-content-center align-items-center vh-100 bg-light">
-<div class="container">
-    <div th:if="${erro}" class="alert alert-danger text-center" style="background-color: rgb(253, 115, 115);">
+
+<div th:if="${!clienteLogado}" class="container">
+    <!-- Mensagem de erro visível caso exista -->
+    <div th:if="${erro}" class="alert alert-danger text-center" style="background-color: rgb(235, 107, 107); margin-top: 10px;">
         <p th:text="${erro}"></p>
     </div>
-    <div id="error-message" style="display: none; background-color: rgb(253, 115, 115); margin-bottom: 10px;" >
+    
+    <!-- Mensagem de erro dinâmica -->
+    <div class="error-message d-none alert alert-danger text-center" style="background-color: rgb(235, 107, 107); margin-top: 10px;">
         <p id="error-text"></p>
     </div>
 
-
-    <div class="card p-4 shadow-lg" style="width: 500px;">
+    <!-- Card Responsivo -->
+    <div class="card p-4 shadow-lg mx-auto" style="max-width: 500px; width: 100%;">
         <h2 class="text-center">Crie sua conta aqui!</h2>
+
         <form id="signupForm" th:action="@{/signup}" method="POST">
-            <div class="row">
-                <div class="col-md-6 mb-3">
+            <div class="row g-3">
+                <div class="col-md-6">
                     <label for="emailS" class="form-label"><strong>Email</strong></label>
                     <input type="email" class="form-control" id="emailS" name="emailS" required>
                 </div>
-                <div class="col-md-6 mb-3">
+
+                <div class="col-md-6">
                     <label for="nomeUsuario" class="form-label"><strong>Nome</strong></label>
                     <input type="text" class="form-control" id="nomeUsuario" name="nomeUsuario" required>
                 </div>
 
-                <div class="col-md-6 mb-3">
+                <div class="col-md-6">
                     <label for="telefone" class="form-label"><strong>Telefone</strong></label>
                     <input type="text" class="form-control" id="telefone" name="telefone" placeholder="(XX) XXXXX-XXXX" required>
                 </div>
-                <div class="col-md-6 mb-3">
+
+                <div class="col-md-6">
                     <label for="cpf" class="form-label"><strong>CPF</strong></label>
                     <input type="text" class="form-control" id="cpf" name="cpf" required>
                 </div>
 
-                <div class="col-md-6 mb-3">
+                <div class="col-md-6">
                     <label for="dataDeNascimento" class="form-label"><strong>Data de Nascimento</strong></label>
                     <input type="date" class="form-control" id="dataDeNascimento" name="dataDeNascimento" required>
                 </div>
-                <div class="col-md-6 mb-3">
-                    
-                        <label><strong>Sexo:</strong></label><br>
+
+                <div class="col-md-6">
+                    <label><strong>Sexo:</strong></label><br>
                     <div class="escolha-sexo">
-                        <input type="radio" id="masculino" name="sexo" value="1" required>
-                        <label for="masculino">Masculino</label><br>
-                
-                        <input type="radio" id="feminino" name="sexo" value="2">
-                        <label for="feminino">Feminino</label><br>
-                
-                        <input type="radio" id="outro" name="sexo" value="3">
-                        <label for="outro">Outro</label><br><br>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="masculino" name="sexo" value="1" required>
+                        <label class="form-check-label" for="masculino">Masculino</label>
                     </div>
-                    
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="feminino" name="sexo" value="2">
+                        <label class="form-check-label" for="feminino">Feminino</label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="outro" name="sexo" value="3">
+                        <label class="form-check-label" for="outro">Outro</label>
+                    </div>
+                    </div>
                 </div>
-                <div class="col-md-6 mb-3">
+
+                <div class="col-md-6">
                     <label for="nacionalidade" class="form-label"><strong>Nacionalidade</strong></label>
                     <input type="text" class="form-control" id="nacionalidade" name="nacionalidade" required>
                 </div>
 
-                <div class="col-md-6 mb-3">
+                <div class="col-md-6">
                     <label for="passwordS" class="form-label"><strong>Senha</strong></label>
                     <input type="password" class="form-control" id="passwordS" name="passwordS" required>
                 </div>
-                <div class="col-md-6 mb-3">
+
+                <div class="col-md-6">
                     <label for="confirmPasswordS" class="form-label"><strong>Confirmar Senha</strong></label>
                     <input type="password" class="form-control" id="confirmPasswordS" name="confirmPasswordS" required>
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary w-100">Criar conta</button>
-        </form> <br>
+            <button type="submit" class="btn btn-primary w-100 mt-3">Criar conta</button>
+        </form>
     </div>
+</div>
+
+<div th:unless="${!clienteLogado}" class="container">
+    <div class="card p-4 shadow-lg" style="max-width: 350px;">
+        <h2 class="text-center">Cliente logado!</h2>
+        <p class="text-center">Você já está logado!</p>
+        <a href="/" class="btn btn-danger w-100">Sair</a>
+    </div>
+
 </div>
 
 
@@ -97,82 +119,86 @@
 
 
     <script>
-        document.getElementById('signupForm').addEventListener('submit', function(event) {
-          // Coleta dos valores para verificação em front end
-          const email = document.getElementById('emailS').value;
-          const nomeUsuario = document.getElementById('nomeUsuario').value;
-          const phone = document.getElementById('telefone').value;
-          const cpf = document.getElementById('cpf').value;
-          const dataDeNascimento = document.getElementById('dataDeNascimento').value;
-          const password = document.getElementById('passwordS').value;
-          const confirmPassword = document.getElementById('confirmPasswordS').value;
+        document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("signupForm").addEventListener("submit", function (event) {
+        // Coleta dos valores para verificação em front end
+        const email = document.getElementById("emailS").value;
+        const nomeUsuario = document.getElementById("nomeUsuario").value;
+        const phone = document.getElementById("telefone").value;
+        const cpf = document.getElementById("cpf").value;
+        const password = document.getElementById("passwordS").value;
+        const confirmPassword = document.getElementById("confirmPasswordS").value;
 
-          // Regex email
-          const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-          // Regex nome
-          const regexNome = /^[A-Z][a-z]{2,}\s[A-Z][a-z]{2,}$/;
-          // regex senhas
-          const regexSenha = /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,}$/;
-          // Expressão regular para verificar o formato do telefone
-          const phoneRegex = /^\(\d{2}\) \d{5}-\d{4}$/;
-          // Expressão regular para verificar o formato do CPF
-          const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
+        // Regex email
+        const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        // Regex nome
+        const regexNome = /^[A-Z][a-z]{2,}\s[A-Z][a-z]{2,}$/;
+        // Regex senha
+        const regexSenha = /^(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{6,}$/;
+        // Regex telefone
+        const phoneRegex = /^\(\d{2}\) \d{5}-\d{4}$/;
+        // Regex CPF
+        const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
 
-            // Limpar qualquer mensagem de erro anterior
-            const errorMessageDiv = document.getElementById('error-message');
-            errorMessageDiv.style.display = 'none';  // Esconde a div de erro
-            document.getElementById('error-text').innerText = '';  // Limpa o texto de erro
-        
+        // Seleciona a div de erro corretamente
+        const errorMessageDiv = document.querySelector(".error-message");
+        const errorText = document.getElementById("error-text");
 
-          if (!regexEmail.test(email)) {
-            document.getElementById('error-text').innerText = 'O email está no formato incorreto. Exemplo: exemplo@gmail.com';
-            errorMessageDiv.style.display = 'block'; // Mostra a div de erro
-            event.preventDefault(); // Impede o envio do formulário
-            return;
-          }
-
-          if(!regexNome.test(nomeUsuario)){
-            document.getElementById('error-text').innerText = 'O nome está no formato incorreto. Exemplo: Nome Sobrenome';
-            errorMessageDiv.style.display = 'block'; // Mostra a div de erro
-            event.preventDefault(); // Impede o envio do formulário
-            return;
-          }
-
-            
-
-          // Verificação do telefone
-          if (!phoneRegex.test(phone)) {
-            document.getElementById('error-text').innerText = 'O número de telefone está no formato incorreto. Exemplo: (XX) XXXXX-XXXX';
-            errorMessageDiv.style.display = 'block'; // Mostra a div de erro
-            event.preventDefault(); // Impede o envio do formulário
-            return;
-          }
-        
-          // Verificação do CPF
-          if (!cpfRegex.test(cpf)) {
-            document.getElementById('error-text').innerText = 'O CPF está no formato incorreto. Exemplo: XXX.XXX.XXX-XX';
-            errorMessageDiv.style.display = 'block'; // Mostra a div de erro
-            event.preventDefault(); // Impede o envio do formulário
-            return;
-          }
-
-          if(!regexSenha.test(password) || !regexSenha.test(confirmPassword)){
-                document.getElementById('error-text').innerText = 'A senha deve conter no mínimo 6 caracteres, uma letra maiúscula, um número e um caractere especial.';
-                errorMessageDiv.style.display = 'block'; // Mostra a div de erro
-                event.preventDefault(); // Impede o envio do formulário
-                return;
+        // Se a div existir, esconde antes de qualquer erro novo
+        if (errorMessageDiv) {
+            errorMessageDiv.style.display = "none";
+            errorText.innerText = "";
         }
 
-          if(password !== confirmPassword){
-            document.getElementById('error-text').innerText = 'As senhas não coincidem.';
-            errorMessageDiv.style.display = 'block'; // Mostra a div de erro
-            event.preventDefault(); // Impede o envio do formulário
+        // Função para exibir erro e impedir envio
+        function showError(message) {
+            if (errorMessageDiv) {
+                alert("Erro ao enviar os dados.");
+                errorText.innerText = message;
+                errorMessageDiv.style.display = "block";
+            }
+            event.preventDefault();
+        }
+
+        // Validação de e-mail
+        if (!regexEmail.test(email)) {
+            showError("O email está no formato incorreto. Exemplo: exemplo@gmail.com");
             return;
-          }
-        
-          // Caso tudo esteja correto, o formulário é enviado
-          alert('Formulário enviado com sucesso!');
-        });
+        }
+
+        // Validação do nome
+        if (!regexNome.test(nomeUsuario)) {
+            showError("O nome está no formato incorreto. Exemplo: Nome Sobrenome");
+            return;
+        }
+
+        // Validação do telefone
+        if (!phoneRegex.test(phone)) {
+            showError("O número de telefone está no formato incorreto. Exemplo: (XX) XXXXX-XXXX");
+            return;
+        }
+
+        // Validação do CPF (formato apenas)
+        if (!cpfRegex.test(cpf)) {
+            showError("CPF inválido. Use o formato XXX.XXX.XXX-XX");
+            return;
+        }
+
+        // Validação de senha
+        if (!regexSenha.test(password)) {
+            showError(
+                "A senha deve conter no mínimo 6 caracteres, uma letra maiúscula, um número e um caractere especial."
+            );
+            return;
+        }
+
+        // Verificação de senhas iguais
+        if (password !== confirmPassword) {
+            showError("As senhas não coincidem.");
+            return;
+        }
+    });
+});
         </script>
 
 <!-- <script>

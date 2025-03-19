@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -67,6 +69,31 @@ public class SignupController {
             return new RedirectView("/signup");
         }
 
+        if (!verificarEmail(emailS)) {
+            redirectAttributes.addFlashAttribute("erro", "Email inserido ja está sendo usado!");
+            return new RedirectView("/signup");
+        }
+
+        if (!verificarNome(nomeUsuario)) {
+            redirectAttributes.addFlashAttribute("erro", "Nome inserido ja está sendo usado!");
+            return new RedirectView("/signup");
+        }
+
+        if (!verificarTel(telefone)) {
+            redirectAttributes.addFlashAttribute("erro", "Telefone inserido ja está sendo usado!");
+            return new RedirectView("/signup");
+        }
+
+        if (!verificarCpf(cpf)) {
+            redirectAttributes.addFlashAttribute("erro", "CPF inserido ja está sendo usado!");
+            return new RedirectView("/signup");
+        }
+
+        if (!verificarSenha(passwordS)) {
+            redirectAttributes.addFlashAttribute("erro", "Senha inserido ja está sendo usado!");
+            return new RedirectView("/signup");
+        }
+
         String dados = String.format("%s, %s, %s, %s, %s, %s, %s, %s%n",
                 emailS, nomeUsuario, telefone, cpf,
                 dataDeNascimento, sexo, nacionalidade, passwordS);
@@ -80,6 +107,81 @@ public class SignupController {
         }
 
         return new RedirectView("/");
+    }
+
+    private boolean verificarEmail(String email) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/clientes.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] dados = line.split(", ");
+                if (dados[0].equals(email)) {
+                    return false;
+                }
+            }
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean verificarNome(String nome) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/clientes.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] dados = line.split(", ");
+                if (dados[1].equals(nome)) {
+                    return false;
+                }
+            }
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean verificarTel(String tel) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/clientes.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] dados = line.split(", ");
+                if (dados[2].equals(tel)) {
+                    return false;
+                }
+            }
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean verificarCpf(String cpf) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/clientes.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] dados = line.split(", ");
+                if (dados[3].equals(cpf)) {
+                    return false;
+                }
+            }
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean verificarSenha(String senha) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/clientes.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] dados = line.split(", ");
+                if (dados[7].equals(senha)) {
+                    return false;
+                }
+            }
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
     }
 
     private boolean validarEmail(String regex, String input) {
