@@ -109,24 +109,24 @@
             <!-- TRECHO -->
             <div>
                 <label class="block text-sm font-medium text-gray-700">TRECHO</label>
-                <select class="w-full p-2 border rounded">
+                <select id="trip-type" class="w-full p-2 border rounded" onchange="toggleReturnDate()">
                     <option selected>Ida e volta</option>
                     <option>Somente ida</option>
                 </select>
             </div>
-
+    
             <!-- SAINDO DE -->
             <div>
                 <label class="block text-sm font-medium text-gray-700">SAINDO DE</label>
                 <input type="text" class="w-full p-2 border rounded" value="Belém - BEL">
             </div>
-
+    
             <!-- INDO PARA -->
             <div>
                 <label class="block text-sm font-medium text-gray-700">INDO PARA</label>
                 <input type="text" class="w-full p-2 border rounded" value="São Paulo - Guarulhos - GRU">
             </div>
-
+    
             <!-- VIAJANTES -->
             <div>
                 <label class="block text-sm font-medium text-gray-700">VIAJANTES</label>
@@ -137,21 +137,21 @@
                 </select>
             </div>
         </div>
-
+    
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
             <!-- DATA DA IDA -->
             <div>
                 <label class="block text-sm font-medium text-gray-700">DATA DA VIAGEM DE IDA</label>
                 <input type="date" class="w-full p-2 border rounded">
             </div>
-
+    
             <!-- DATA DA VOLTA -->
-            <div>
+            <div id="return-date-container">
                 <label class="block text-sm font-medium text-gray-700">DATA DA VIAGEM DE VOLTA</label>
                 <input type="date" class="w-full p-2 border rounded">
             </div>
         </div>
-
+    
         <!-- OPÇÕES ADICIONAIS -->
         <div class="flex items-center justify-between mt-4">
             <label class="flex items-center space-x-2">
@@ -160,7 +160,7 @@
             </label>
             <a href="#" class="text-orange-600 text-sm hover:underline">Inserir um código promocional</a>
         </div>
-
+    
         <!-- BOTÃO DE BUSCA -->
         <div class="mt-4 text-right">
             <button class="bg-orange-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-orange-600">
@@ -168,6 +168,23 @@
             </button>
         </div>
     </div>
+    
+    <script>
+        function toggleReturnDate() {
+            const tripType = document.getElementById('trip-type').value;
+            const returnDateContainer = document.getElementById('return-date-container');
+            if (tripType === 'Somente ida') {
+                returnDateContainer.style.display = 'none';
+            } else {
+                returnDateContainer.style.display = 'block';
+            }
+        }
+    
+        // Initialize the return date container visibility
+        document.addEventListener('DOMContentLoaded', () => {
+            toggleReturnDate();
+        });
+    </script>
 
     <div class="container">
         <div class="card">
