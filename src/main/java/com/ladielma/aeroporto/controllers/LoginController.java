@@ -20,7 +20,7 @@ public class LoginController {
                 String[] dados = line.split(", ");
                 if (dados[0].equals(email) && dados[7].equals(password)) {
 
-                    Cliente cliente = new Cliente(dados[1], dados[0], dados[2], dados[3], dados[7], dados[4], dados[5],
+                    Cliente cliente = new Cliente(dados[1], dados[0], dados[2], dados[1], dados[7], dados[4], dados[3],
                             dados[6], null, 0);
                     cliente.adicionarCliente(cliente);
                     return new RedirectView("/");

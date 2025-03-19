@@ -119,81 +119,86 @@
 
 
     <script>
-        document.getElementById('signupForm').addEventListener('submit', function(event) {
+        document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("signupForm").addEventListener("submit", function (event) {
+        // Coleta dos valores para verificação em front end
+        const email = document.getElementById("emailS").value;
+        const nomeUsuario = document.getElementById("nomeUsuario").value;
+        const phone = document.getElementById("telefone").value;
+        const cpf = document.getElementById("cpf").value;
+        const password = document.getElementById("passwordS").value;
+        const confirmPassword = document.getElementById("confirmPasswordS").value;
 
-          // Coleta dos valores para verificação em front end
-          const email = document.getElementById('emailS').value;
-          const nomeUsuario = document.getElementById('nomeUsuario').value;
-          const phone = document.getElementById('telefone').value;
-          const cpf = document.getElementById('cpf').value;
-          const dataDeNascimento = document.getElementById('dataDeNascimento').value;
-          const password = document.getElementById('passwordS').value;
-          const confirmPassword = document.getElementById('confirmPasswordS').value;
+        // Regex email
+        const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        // Regex nome
+        const regexNome = /^[A-Z][a-z]{2,}\s[A-Z][a-z]{2,}$/;
+        // Regex senha
+        const regexSenha = /^(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{6,}$/;
+        // Regex telefone
+        const phoneRegex = /^\(\d{2}\) \d{5}-\d{4}$/;
+        // Regex CPF
+        const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
 
-          // Regex email
-          const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-          // Regex nome
-          const regexNome = /^[A-Z][a-z]{2,}\s[A-Z][a-z]{2,}$/;
-          // regex senhas
-          const regexSenha = /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,}$/;
-          // Expressão regular para verificar o formato do telefone
-          const phoneRegex = /^\(\d{2}\) \d{5}-\d{4}$/;
-          // Expressão regular para verificar o formato do CPF
-          const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
+        // Seleciona a div de erro corretamente
+        const errorMessageDiv = document.querySelector(".error-message");
+        const errorText = document.getElementById("error-text");
 
-            // Limpar qualquer mensagem de erro anterior
-            const errorMessageDiv = document.getElementsByClassName('error-message');
-            errorMessageDiv.style.display = 'none';  // Esconde a div de erro
-            document.getElementById('error-text').innerText = '';  // Limpa o texto de erro
-        
-
-          if (!regexEmail.test(email)) {
-            document.getElementById('error-text').innerText = 'O email está no formato incorreto. Exemplo: exemplo@gmail.com';
-            errorMessageDiv.style.display = 'block'; // Mostra a div de erro
-            event.preventDefault(); // Impede o envio do formulário
-            return;
-          }
-
-          if(!regexNome.test(nomeUsuario)){
-            document.getElementById('error-text').innerText = 'O nome está no formato incorreto. Exemplo: Nome Sobrenome';
-            errorMessageDiv.style.display = 'block'; // Mostra a div de erro
-            event.preventDefault(); // Impede o envio do formulário
-            return;
-          }
-
-            
-
-          // Verificação do telefone
-          if (!phoneRegex.test(phone)) {
-            document.getElementById('error-text').innerText = 'O número de telefone está no formato incorreto. Exemplo: (XX) XXXXX-XXXX';
-            errorMessageDiv.style.display = 'block'; // Mostra a div de erro
-            event.preventDefault(); // Impede o envio do formulário
-            return;
-          }
-        
-          // Verificação do CPF
-          if (!cpfRegex.test(cpf)) {
-            document.getElementById('error-text').innerText = 'O CPF está no formato incorreto. Exemplo: XXX.XXX.XXX-XX';
-            errorMessageDiv.style.display = 'block'; // Mostra a div de erro
-            event.preventDefault(); // Impede o envio do formulário
-            return;
-          }
-
-          if(!regexSenha.test(password) || !regexSenha.test(confirmPassword)){
-                document.getElementById('error-text').innerText = 'A senha deve conter no mínimo 6 caracteres, uma letra maiúscula, um número e um caractere especial.';
-                errorMessageDiv.style.display = 'block'; // Mostra a div de erro
-                event.preventDefault(); // Impede o envio do formulário
-                return;
+        // Se a div existir, esconde antes de qualquer erro novo
+        if (errorMessageDiv) {
+            errorMessageDiv.style.display = "none";
+            errorText.innerText = "";
         }
 
-          if(password !== confirmPassword){
-            document.getElementById('error-text').innerText = 'As senhas não coincidem.';
-            errorMessageDiv.style.display = 'block'; // Mostra a div de erro
-            event.preventDefault(); // Impede o envio do formulário
+        // Função para exibir erro e impedir envio
+        function showError(message) {
+            if (errorMessageDiv) {
+                alert("Erro ao enviar os dados.");
+                errorText.innerText = message;
+                errorMessageDiv.style.display = "block";
+            }
+            event.preventDefault();
+        }
+
+        // Validação de e-mail
+        if (!regexEmail.test(email)) {
+            showError("O email está no formato incorreto. Exemplo: exemplo@gmail.com");
             return;
-          }
-        
-        });
+        }
+
+        // Validação do nome
+        if (!regexNome.test(nomeUsuario)) {
+            showError("O nome está no formato incorreto. Exemplo: Nome Sobrenome");
+            return;
+        }
+
+        // Validação do telefone
+        if (!phoneRegex.test(phone)) {
+            showError("O número de telefone está no formato incorreto. Exemplo: (XX) XXXXX-XXXX");
+            return;
+        }
+
+        // Validação do CPF (formato apenas)
+        if (!cpfRegex.test(cpf)) {
+            showError("CPF inválido. Use o formato XXX.XXX.XXX-XX");
+            return;
+        }
+
+        // Validação de senha
+        if (!regexSenha.test(password)) {
+            showError(
+                "A senha deve conter no mínimo 6 caracteres, uma letra maiúscula, um número e um caractere especial."
+            );
+            return;
+        }
+
+        // Verificação de senhas iguais
+        if (password !== confirmPassword) {
+            showError("As senhas não coincidem.");
+            return;
+        }
+    });
+});
         </script>
 
 <!-- <script>

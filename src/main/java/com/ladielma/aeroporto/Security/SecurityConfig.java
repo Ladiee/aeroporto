@@ -18,7 +18,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests -> {
                     authorizeRequests
                             .requestMatchers("/", "/img/**", "/signup", "/styles/**", "/js/**", "/alterar-dados",
-                                    "/login", "/pagamento", "/assentos")
+                                    "/login", "/pagamento", "/assentos", "redefinir-senha")
                             .permitAll();
                     authorizeRequests.anyRequest().authenticated();
 

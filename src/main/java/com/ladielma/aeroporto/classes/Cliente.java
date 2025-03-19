@@ -6,13 +6,13 @@ public class Cliente extends Usuario {
     private String dataNascimento;
     private String cpf;
     private String nacionalidade;
-    private Sexo sexo;
+    private String sexo;
     private ArrayList<Reserva> viagens;
     private static ArrayList<Cliente> clientes = new ArrayList<>();
     private int pontos;
 
     public Cliente(String nome, String email, String telefone, String nomeUsuario, String senha, String dataNascimento,
-            String cpf, String nacionalidade, Sexo sexo, int pontos) {
+            String cpf, String nacionalidade, String sexo, int pontos) {
         super(nome, email, telefone, nomeUsuario, senha);
         this.dataNascimento = dataNascimento;
         this.cpf = cpf;
@@ -42,7 +42,7 @@ public class Cliente extends Usuario {
         return this.nacionalidade;
     }
 
-    public Sexo getSexo() {
+    public String getSexo() {
         return this.sexo;
     }
 

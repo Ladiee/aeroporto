@@ -50,6 +50,13 @@ public class PagesController {
         return "alterar-dados";
     }
 
+    @GetMapping("/redefinir-senha")
+    public String redefinirSenha(Model model) {
+        boolean clienteLogado = !Cliente.getClientes().isEmpty();
+        model.addAttribute("clienteLogado", clienteLogado);
+        return "redefinir-senha";
+    }
+
     // Controle das páginas html para login e signup
     @GetMapping("/login")
     public String login(Model model) {
