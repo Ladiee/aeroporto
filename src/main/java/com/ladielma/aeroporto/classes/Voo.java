@@ -18,22 +18,18 @@ public class Voo {
     private Aviao aviao;
     private static ArrayList<Voo> chegadas = new ArrayList<>();
     private static ArrayList<Voo> saidas = new ArrayList<>();
+    private static ArrayList<Voo> voos = new ArrayList<>();
     private Assento[] assentos;
-
 
     static{
         Companhia companhia1 = new Companhia(
         "Latam Airlines",   // Nome
-        "LA",              // Código IATA
-        "LAN",             // Código ICAO
         "Brasil",          // País
         "+55 11 4002-5700" // Contato
     );
 
     Companhia companhia2 = new Companhia(
         "Gol Linhas Aéreas", // Nome
-        "G3",                // Código IATA
-        "GLO",               // Código ICAO
         "Brasil",            // País
         "+55 11 5504-4410"   // Contato
     );
@@ -94,6 +90,7 @@ public class Voo {
         for (int i = 0; i < aviao.getQtdAssentos(); i++) {
             this.assentos[i]= new Assento(i+1);
         }
+        voos.add(this);
     }
 
     public void setIdVoo(String idVoo) {
@@ -134,6 +131,10 @@ public class Voo {
 
     public Companhia getCompanhia() {
         return companhia;
+    }
+
+    public static ArrayList<Voo> getVoos(){
+        return voos;
     }
 
     public void setStatusVoo(StatusVoo statusVoo) {

@@ -1,5 +1,7 @@
 package com.ladielma.aeroporto.classes;
 
+import java.util.ArrayList;
+
 public class Aviao {
     private String modelo;
     private String fabricante;
@@ -7,6 +9,7 @@ public class Aviao {
     private int qtdAssentosEconomicos;
     private int qtdAssentosExecutivos;
     private int qtdAssentosPrimeiraClasse;
+    private static ArrayList<Aviao> avioes = new ArrayList<>();
 
     public Aviao(String modelo, String fabricante, int qtdAssentos, int qtdAssentosEconomicos, int qtdAssentosExecutivos, int qtdAssentosPrimeiraClasse) {
         this.modelo = modelo;
@@ -15,6 +18,7 @@ public class Aviao {
         this.qtdAssentosEconomicos = qtdAssentosEconomicos;
         this.qtdAssentosExecutivos = qtdAssentosExecutivos;
         this.qtdAssentosPrimeiraClasse = qtdAssentosPrimeiraClasse;
+        avioes.add(this);
     }
 
     public void setModelo(String modelo) {
@@ -63,6 +67,10 @@ public class Aviao {
 
     public int getQtdAssentosPrimeiraClasse() {
         return qtdAssentosPrimeiraClasse;
+    }
+
+    public static ArrayList<Aviao> getAvioes(){
+        return avioes;
     }
 
 

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Voo</title>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body class="d-flex justify-content-center align-items-center vh-100 bg-light pt-6">
+    <form id="formCadastro" class="max-w-4xl mx-auto p-6 bg-gray shadow-md rounded-lg border-t border-gray-300">
+        <h2 class="text-2xl font-bold text-center mb-4">Cadastro de Novo Voo</h2>
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <label for="idVoo" class="block font-medium">N° do Voo</label>
+                <input id="idVoo" type="text" name="id_voo" placeholder="N° do Voo" class="w-full p-2 border rounded-md">
+            </div>
+            <div>
+                <label class="block font-medium">Entrada/Saída</label>
+                <div class="flex gap-4">
+                    <label class="flex items-center">
+                        <input type="radio" name="chegando_saindo" value="chegando" class="mr-2"> Chegando
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="chegando_saindo" value="saindo" class="mr-2"> Partindo
+                    </label>
+                </div>
+            </div>
+            <div>
+                <label for="hora_voo" class="block font-medium">Data e Horário do Voo</label>
+                <input type="datetime-local" id="hora_voo" name="hora_voo" class="border rounded-lg p-2 w-full">
+            </div>
+            <div>
+                <label for="terminal" class="block font-medium">Terminal</label>
+                <select id="terminal" name="terminal" class="border rounded-lg p-2 w-full">
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                </select>
+            </div>
+            <div>
+                <label for="local" class="block font-medium">Origem/Destino</label>
+                <input id="local" type="text" name="local" placeholder="local" class="w-full p-2 border rounded-md">
+            </div>
+            <div>
+                <label for="companhia" class="block font-medium">Companhia Aérea</label>
+                <select id="companhia" name="companhia" class="border rounded-lg p-2 w-full" onchange="toggleCompanhiaInput()">
+                    <option value="">Selecione uma companhia</option>
+                    <option th:each="companhia : ${companhias}" th:value="${companhia.nome}" th:text="${companhia.nome}" th:data-nome="${companhia.nome}" th:data-email="${companhia.contato}" th:data-pais="${companhia.pais}"></option>
+                    <option value="Outra">Outra...</option>
+                </select>
+            
+                <!-- Campo escondido para nova companhia -->
+                <input type="text" id="novaCompanhia" name="novaCompanhia" class="border rounded-lg p-2 w-full mt-2 hidden" placeholder="Digite o nome da nova companhia">
+                <input type="text" id="novaCompanhiaPais" name="novaCompanhiaPais" class="border rounded-lg p-2 w-full mt-2 hidden" placeholder="Digite o país da nova companhia">
+                <input type="email" id="novaCompanhiaEmail" name="novaCompanhiaEmail" class="border rounded-lg p-2 w-full mt-2 hidden" placeholder="Digite o email da nova companhia">
+            </div>
+
+            <div>
+                <label for="aviao" class="block font-medium">Avião</label>
+                <select id="aviao" name="aviao" class="border rounded-lg p-2 w-full" onchange="toggleAviaoInput()">
+                    <option value="">Selecione um avião</option>
+                    <option th:each="aviao : ${avioes}" th:value="${aviao}" th:text="${aviao.modelo}" th:data-modelo="aviao.modelo" th:data-econ="aviao.qtdAssentosEconomicos" th:data-exec="aviao.qtdAssentosExecutivos" th:data-prim="aviao.qtdAssentosPrimeiraClasse"></option>
+                    <option value="Outro">Outro...</option>
+                </select>
+            
+                <!-- Campo escondido para novo avião -->
+                <input type="text" id="novoAviao" name="novoAviao" class="border rounded-lg p-2 w-full mt-2 hidden" placeholder="Digite o Modelo do avião">
+                <input type="number" id="economAviao" name="economAviao" min="100" max="900" class="border rounded-lg p-2 w-full mt-2 hidden" placeholder="Digite a quantidade de assentos econômicos">
+                <input type="number" id="execAviao" name="execAviao" min="100" max="900" class="border rounded-lg p-2 w-full mt-2 hidden" placeholder="Digite a quantidade de assentos Executivos">
+                <input type="number" id="primAviao" name="primAviao" min="100" max="900" class="border rounded-lg p-2 w-full mt-2 hidden" placeholder="Digite a quantidade de assentos da Primeira Classe">
+            </div>
+        </div>
+
+        <button type="submit" class="m-4 w-full bg-blue-600 text-white p-3 rounded-md shadow-md hover:bg-blue-700">Criar Voo</button>  
+    </form>
+
+    <script>
+        
+        function toggleCompanhiaInput() {
+            var select = document.getElementById("companhia");
+            var novaCompanhiaInput = document.getElementById("novaCompanhia");
+            var emailInput = document.getElementById("novaCompanhiaEmail");
+            var paisInput = document.getElementById("novaCompanhiaPais");
+
+            if (select.value === "Outra") {
+                novaCompanhiaInput.classList.remove("hidden");
+                emailInput.classList.remove("hidden");
+                paisInput.classList.remove("hidden");
+            } else {
+                novaCompanhiaInput.classList.add("hidden");
+                emailInput.classList.add("hidden");
+                paisInput.classList.add("hidden");
+
+                // Limpa os valores apenas se o campo for ocultado
+                novaCompanhiaInput.value = ""; 
+                emailInput.value = "";
+                paisInput.value = "";
+            }
+        }
+
+        function toggleAviaoInput() {
+            var select = document.getElementById("aviao");
+            var aviaoInput = document.getElementById("novoAviao");
+            var economAviaoInput = document.getElementById("economAviao");
+            var execAviaoInput = document.getElementById("execAviao");
+            var primAviaoInput = document.getElementById("primAviao");
+
+            if (select.value === "Outro") {
+                aviaoInput.classList.remove("hidden");
+                economAviaoInput.classList.remove("hidden");
+                execAviaoInput.classList.remove("hidden");
+                primAviaoInput.classList.remove("hidden");
+            } else {
+                aviaoInput.classList.add("hidden");
+                economAviaoInput.classList.add("hidden");
+                execAviaoInput.classList.add("hidden");
+                primAviaoInput.classList.add("hidden");
+
+                // Limpa os valores corretamente
+                aviaoInput.value = "";
+                economAviaoInput.value = "";
+                execAviaoInput.value = "";
+                primAviaoInput.value = "";
+            }
+        }
+
+        document.getElementById("formCadastro").addEventListener("submit", function(event) {
+    event.preventDefault(); 
+    console.log("Botão de submit pressionado!");
+
+    // Obtendo valores corretos do formulário
+    const idVoo = document.getElementById("idVoo").value;
+    const horario = document.getElementById("hora_voo").value;
+    const origemDestino = document.getElementById("local").value;
+    const terminal = document.getElementById("terminal").value; // Corrigido para pegar o valor correto do select
+
+    const chegandoAux = document.querySelector('input[name="chegando_saindo"]:checked')?.value;
+    const isChegando = chegandoAux === "chegando";
+
+    // 🔹 Tratamento de companhia aérea
+    const selectCompanhia = document.getElementById("companhia");
+    let companhia = {};
+
+    if (selectCompanhia.value === "Outra") {
+        companhia = {
+            nome: document.getElementById("novaCompanhia").value || "",
+            email: document.getElementById("novaCompanhiaEmail").value || "",
+            pais: document.getElementById("novaCompanhiaPais").value || ""
+        };
+    } else {
+        const selectedOption = selectCompanhia.options[selectCompanhia.selectedIndex];
+        companhia = {
+            nome: selectedOption?.getAttribute("data-nome") || "",
+            email: selectedOption?.getAttribute("data-email") || "",
+            pais: selectedOption?.getAttribute("data-pais") || ""
+        };
+    }
+
+    // 🔹 Tratamento do avião
+    const selectAviao = document.getElementById("aviao");
+    let aviao = {};
+
+    if (selectAviao.value === "Outro") {
+        aviao = {
+            modelo: document.getElementById("novoAviao").value,
+            econ: document.getElementById("economAviao").value,
+            exec: document.getElementById("execAviao").value,
+            prim: document.getElementById("primAviao").value
+        };
+    } else {
+        const selectedAviaoOption = selectAviao.options[selectAviao.selectedIndex];
+        aviao = {
+            modelo: selectedAviaoOption?.getAttribute("data-modelo") || "",
+            econ: selectedAviaoOption?.getAttribute("data-econ") || "",
+            exec: selectedAviaoOption?.getAttribute("data-exec") || "",
+            prim: selectedAviaoOption?.getAttribute("data-prim") || ""
+        };
+    }
+
+    // 🔹 Criando objeto voo
+    const voo = {
+        id: idVoo,
+        chegando: isChegando,
+        horario: horario,
+        terminal: terminal,
+        origemDestino: origemDestino,
+        companhia: companhia, 
+        aviao: aviao
+    };
+
+    console.log("Voo a ser enviado:", voo);
+
+    fetch("http://localhost:8080/voos", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(voo)
+    })
+    .then(response => response.json()) // 🔹 Agora converte direto para JSON
+    .then(data => console.log("Voo cadastrado com sucesso!", data))
+    .catch(error => console.error("Erro ao cadastrar voo:", error));
+
+
+    // 🔹 Enviando requisição para o backend
+//     fetch("http://localhost:8080/voos", {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify(voo)
+//     })
+//     .then(response => {
+//     console.log("Content-Type:", response.headers.get("content-type"));
+//     return response.text(); // 🔹 Primeiro, ler como texto para depuração
+//     })
+//     .then(data => {
+//         console.log("Resposta da API:", data);
+//         try {
+//             const jsonData = JSON.parse(data);
+//             console.log("Voo cadastrado com sucesso!", jsonData);
+//         } catch (error) {
+//             console.error("Erro ao converter resposta para JSON:", error);
+//         }
+//     })
+
+
+//     // .then(response => response.json())
+//     // .then(data => {
+//     //     alert("Voo cadastrado com sucesso!");
+//     //     console.log("Resposta da API:", data);
+//     // })
+//     .catch(error => console.error("Erro ao cadastrar voo:", error));
+});
+        
+    </script>
+
+</body>
+</html>

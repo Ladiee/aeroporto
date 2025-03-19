@@ -8,7 +8,7 @@ public class Companhia {
     private String contato;
     private static ArrayList<Companhia> companhias = new ArrayList<Companhia>();
 
-    public Companhia(String nome, String iata, String icao, String pais, String contato) {
+    public Companhia(String nome, String pais, String contato) {
         this.nome = nome;
         this.pais = pais;
         this.contato = contato;
