@@ -109,32 +109,22 @@
             <!-- TRECHO -->
             <div>
                 <label class="block text-sm font-medium text-gray-700">TRECHO</label>
-                <select id="trip-type" class="w-full p-2 border rounded" onchange="toggleReturnDate()">
-                    <option selected>Ida e volta</option>
-                    <option>Somente ida</option>
+                <select id="tipo-viagem" class="w-full p-2 border rounded" onchange="toggleReturnDate()">
+                    <option value="Ida e volta" selected>Ida e volta</option>
+                    <option value="Somente ida">Somente ida</option>
                 </select>
             </div>
     
             <!-- SAINDO DE -->
             <div>
                 <label class="block text-sm font-medium text-gray-700">SAINDO DE</label>
-                <input type="text" class="w-full p-2 border rounded" value="Belém - BEL">
+                <input type="text" id="saindo-de" class="w-full p-2 border rounded" value="Belém - BEL">
             </div>
     
             <!-- INDO PARA -->
             <div>
                 <label class="block text-sm font-medium text-gray-700">INDO PARA</label>
-                <input type="text" class="w-full p-2 border rounded" value="São Paulo - Guarulhos - GRU">
-            </div>
-    
-            <!-- VIAJANTES -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700">VIAJANTES</label>
-                <select class="w-full p-2 border rounded">
-                    <option selected>1 Adulto(s)</option>
-                    <option>2 Adultos</option>
-                    <option>3 Adultos</option>
-                </select>
+                <input type="text" id="indo-para" class="w-full p-2 border rounded" value="São Paulo - Guarulhos - GRU">
             </div>
         </div>
     
@@ -142,20 +132,51 @@
             <!-- DATA DA IDA -->
             <div>
                 <label class="block text-sm font-medium text-gray-700">DATA DA VIAGEM DE IDA</label>
-                <input type="date" class="w-full p-2 border rounded">
+                <input type="date" id="data-ida" class="w-full p-2 border rounded">
             </div>
     
             <!-- DATA DA VOLTA -->
-            <div id="return-date-container">
+            <div id="container-data-volta">
                 <label class="block text-sm font-medium text-gray-700">DATA DA VIAGEM DE VOLTA</label>
-                <input type="date" class="w-full p-2 border rounded">
+                <input type="date" id="data-volta" class="w-full p-2 border rounded">
+            </div>
+        </div>
+    
+        <!-- VIAJANTES -->
+        <div class="mt-4">
+            <label class="block text-sm font-medium text-gray-700">VIAJANTES</label>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="flex flex-col">
+                    <label>Adultos</label>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="alterarViajantes('adultos', -1)" class="bg-gray-200 px-2">-</button>
+                        <input type="text" id="adultos" value="1" class="w-12 text-center border rounded" readonly>
+                        <button onclick="alterarViajantes('adultos', 1)" class="bg-gray-200 px-2">+</button>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <label>Crianças</label>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="alterarViajantes('criancas', -1)" class="bg-gray-200 px-2">-</button>
+                        <input type="text" id="criancas" value="0" class="w-12 text-center border rounded" readonly>
+                        <button onclick="alterarViajantes('criancas', 1)" class="bg-gray-200 px-2">+</button>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <label>Bebês</label>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="alterarViajantes('bebes', -1)" class="bg-gray-200 px-2">-</button>
+                        <input type="text" id="bebes" value="0" class="w-12 text-center border rounded" readonly>
+                        <button onclick="alterarViajantes('bebes', 1)" class="bg-gray-200 px-2">+</button>
+                    </div>
+                </div>
             </div>
         </div>
     
         <!-- OPÇÕES ADICIONAIS -->
         <div class="flex items-center justify-between mt-4">
             <label class="flex items-center space-x-2">
-                <input type="checkbox" class="w-4 h-4">
+                <input type="checkbox" id="viagem-trabalho" class="w-4 h-4">
                 <span class="text-sm">Estou viajando a trabalho</span>
             </label>
             <a href="#" class="text-orange-600 text-sm hover:underline">Inserir um código promocional</a>
@@ -163,7 +184,7 @@
     
         <!-- BOTÃO DE BUSCA -->
         <div class="mt-4 text-right">
-            <button class="bg-orange-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-orange-600">
+            <button class="bg-orange-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-orange-600" onclick="buscarVoos()">
                 BUSCAR VOOS
             </button>
         </div>
@@ -171,12 +192,12 @@
     
     <script>
         function toggleReturnDate() {
-            const tripType = document.getElementById('trip-type').value;
-            const returnDateContainer = document.getElementById('return-date-container');
-            if (tripType === 'Somente ida') {
-                returnDateContainer.style.display = 'none';
+            const tipoViagem = document.getElementById('tipo-viagem').value;
+            const containerDataVolta = document.getElementById('container-data-volta');
+            if (tipoViagem === 'Somente ida') {
+                containerDataVolta.style.display = 'none';
             } else {
-                returnDateContainer.style.display = 'block';
+                containerDataVolta.style.display = 'block';
             }
         }
     
@@ -184,8 +205,39 @@
         document.addEventListener('DOMContentLoaded', () => {
             toggleReturnDate();
         });
+    
+        function alterarViajantes(tipo, valor) {
+            const input = document.getElementById(tipo);
+            let count = parseInt(input.value) + valor;
+            if (count < 0) count = 0;
+            input.value = count;
+        }
+    
+        function buscarVoos() {
+            const tipoViagem = document.getElementById('tipo-viagem').value;
+            const saindoDe = document.getElementById('saindo-de').value;
+            const indoPara = document.getElementById('indo-para').value;
+            const adultos = document.getElementById('adultos').value;
+            const criancas = document.getElementById('criancas').value;
+            const bebes = document.getElementById('bebes').value;
+            const dataIda = document.getElementById('data-ida').value;
+            const dataVolta = document.getElementById('data-volta').value;
+            const viagemTrabalho = document.getElementById('viagem-trabalho').checked;
+    
+            sessionStorage.setItem('tipoViagem', tipoViagem);
+            sessionStorage.setItem('saindoDe', saindoDe);
+            sessionStorage.setItem('indoPara', indoPara);
+            sessionStorage.setItem('adultos', adultos);
+            sessionStorage.setItem('criancas', criancas);
+            sessionStorage.setItem('bebes', bebes);
+            sessionStorage.setItem('dataIda', dataIda);
+            sessionStorage.setItem('dataVolta', dataVolta);
+            sessionStorage.setItem('viagemTrabalho', viagemTrabalho);
+    
+            window.location.href = "/sobre_passagem";
+        }
     </script>
-
+    
     <div class="container">
         <div class="card">
             <div class="icon">📖</div>
