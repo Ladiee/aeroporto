@@ -3,11 +3,25 @@ package com.ladielma.aeroporto.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import com.ladielma.aeroporto.classes.Voo;
+import com.ladielma.aeroporto.AeroportoApplication;
 import com.ladielma.aeroporto.classes.Cliente;
+
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.ladielma.aeroporto.classes.Aviao;
+import com.ladielma.aeroporto.classes.Companhia;
+
 
 @Controller
 public class PagesController {
+
+    private final AeroportoApplication aeroportoApplication;
+
+    PagesController(AeroportoApplication aeroportoApplication) {
+        this.aeroportoApplication = aeroportoApplication;
+    }
 
     // Controle da home
     @GetMapping("/")
@@ -31,6 +45,22 @@ public class PagesController {
         }
         return "home";
     }
+    
+
+    @GetMapping("/cadastroVoo")
+    public String cadastroVoo(Model model){
+        model.addAttribute("avioes", Aviao.getAvioes());
+        model.addAttribute("companhias", Companhia.getCompanhias());
+        return "cadastroVoo";
+    }
+
+    @GetMapping("/homeFunc")
+    public String funcionarioHome(Model model) {
+        model.addAttribute("voos", Voo.getVoos());
+        model.addAttribute("companhias", Companhia.getCompanhias());
+        return "homeFunc";
+    }
+    
 
     @GetMapping("/alterar-dados")
     public String teste(Model model) {

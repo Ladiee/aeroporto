@@ -18,7 +18,18 @@ public class Aviao {
         this.qtdAssentosEconomicos = qtdAssentosEconomicos;
         this.qtdAssentosExecutivos = qtdAssentosExecutivos;
         this.qtdAssentosPrimeiraClasse = qtdAssentosPrimeiraClasse;
-        avioes.add(this);
+        if (aviaoExiste(modelo) == false){
+            avioes.add(this);
+        }
+    }
+
+    private boolean aviaoExiste(String nomeModelo){
+        for (Aviao aviao : avioes) {
+            if (nomeModelo.equals(aviao.modelo)){
+                return true;
+            } 
+        }
+        return false; 
     }
 
     public void setModelo(String modelo) {

@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Voo</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body class="d-flex justify-content-center align-items-center vh-100 bg-light pt-6">
-    <form id="formCadastro" class="max-w-4xl mx-auto p-6 bg-gray shadow-md rounded-lg border-t border-gray-300">
+    <form id="formCadastroVoo" class="max-w-4xl mx-auto p-6 bg-gray shadow-md rounded-lg border-t border-gray-300">
         <h2 class="text-2xl font-bold text-center mb-4">Cadastro de Novo Voo</h2>
         <div class="grid grid-cols-2 gap-4">
             <div>
@@ -61,15 +62,15 @@
                 <label for="aviao" class="block font-medium">Avião</label>
                 <select id="aviao" name="aviao" class="border rounded-lg p-2 w-full" onchange="toggleAviaoInput()">
                     <option value="">Selecione um avião</option>
-                    <option th:each="aviao : ${avioes}" th:value="${aviao}" th:text="${aviao.modelo}" th:data-modelo="aviao.modelo" th:data-econ="aviao.qtdAssentosEconomicos" th:data-exec="aviao.qtdAssentosExecutivos" th:data-prim="aviao.qtdAssentosPrimeiraClasse"></option>
+                    <option th:each="aviao : ${avioes}" th:value="${aviao}" th:text="${aviao.modelo}" th:data-modelo="${aviao.modelo}" th:data-econ="${aviao.qtdAssentosEconomicos}" th:data-exec="${aviao.qtdAssentosExecutivos}" th:data-prim="${aviao.qtdAssentosPrimeiraClasse}"></option>
                     <option value="Outro">Outro...</option>
                 </select>
             
                 <!-- Campo escondido para novo avião -->
                 <input type="text" id="novoAviao" name="novoAviao" class="border rounded-lg p-2 w-full mt-2 hidden" placeholder="Digite o Modelo do avião">
-                <input type="number" id="economAviao" name="economAviao" min="100" max="900" class="border rounded-lg p-2 w-full mt-2 hidden" placeholder="Digite a quantidade de assentos econômicos">
-                <input type="number" id="execAviao" name="execAviao" min="100" max="900" class="border rounded-lg p-2 w-full mt-2 hidden" placeholder="Digite a quantidade de assentos Executivos">
-                <input type="number" id="primAviao" name="primAviao" min="100" max="900" class="border rounded-lg p-2 w-full mt-2 hidden" placeholder="Digite a quantidade de assentos da Primeira Classe">
+                <input type="number" id="economAviao" name="economAviao" class="border rounded-lg p-2 w-full mt-2 hidden" placeholder="Digite a quantidade de assentos econômicos">
+                <input type="number" id="execAviao" name="execAviao" class="border rounded-lg p-2 w-full mt-2 hidden" placeholder="Digite a quantidade de assentos Executivos">
+                <input type="number" id="primAviao" name="primAviao" class="border rounded-lg p-2 w-full mt-2 hidden" placeholder="Digite a quantidade de assentos da Primeira Classe">
             </div>
         </div>
 
@@ -77,6 +78,18 @@
     </form>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const selectElement = document.getElementById("companhia");
+
+            if (selectElement) { // 🔹 Verifica se o elemento existe antes de usar
+                selectElement.addEventListener("change", function () {
+                    console.log("Opção selecionada:", selectElement.value);
+                });
+            } else {
+                console.error("Erro: Elemento select não encontrado!");
+            }
+        });
+
         
         function toggleCompanhiaInput() {
             var select = document.getElementById("companhia");
@@ -126,7 +139,7 @@
             }
         }
 
-        document.getElementById("formCadastro").addEventListener("submit", function(event) {
+        document.getElementById("formCadastroVoo").addEventListener("submit", function(event) {
     event.preventDefault(); 
     console.log("Botão de submit pressionado!");
 
@@ -146,14 +159,14 @@
     if (selectCompanhia.value === "Outra") {
         companhia = {
             nome: document.getElementById("novaCompanhia").value || "",
-            email: document.getElementById("novaCompanhiaEmail").value || "",
+            contato: document.getElementById("novaCompanhiaEmail").value || "",
             pais: document.getElementById("novaCompanhiaPais").value || ""
         };
     } else {
         const selectedOption = selectCompanhia.options[selectCompanhia.selectedIndex];
         companhia = {
             nome: selectedOption?.getAttribute("data-nome") || "",
-            email: selectedOption?.getAttribute("data-email") || "",
+            contato: selectedOption?.getAttribute("data-email") || "",
             pais: selectedOption?.getAttribute("data-pais") || ""
         };
     }
@@ -181,7 +194,7 @@
 
     // 🔹 Criando objeto voo
     const voo = {
-        id: idVoo,
+        idVoo: idVoo,
         chegando: isChegando,
         horario: horario,
         terminal: terminal,
@@ -192,47 +205,36 @@
 
     console.log("Voo a ser enviado:", voo);
 
-    fetch("http://localhost:8080/voos", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(voo)
-    })
-    .then(response => response.json()) // 🔹 Agora converte direto para JSON
-    .then(data => console.log("Voo cadastrado com sucesso!", data))
-    .catch(error => console.error("Erro ao cadastrar voo:", error));
-
-
     // 🔹 Enviando requisição para o backend
-//     fetch("http://localhost:8080/voos", {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify(voo)
-//     })
-//     .then(response => {
-//     console.log("Content-Type:", response.headers.get("content-type"));
-//     return response.text(); // 🔹 Primeiro, ler como texto para depuração
-//     })
-//     .then(data => {
-//         console.log("Resposta da API:", data);
-//         try {
-//             const jsonData = JSON.parse(data);
-//             console.log("Voo cadastrado com sucesso!", jsonData);
-//         } catch (error) {
-//             console.error("Erro ao converter resposta para JSON:", error);
-//         }
-//     })
+    fetch("http://localhost:8080/cadastroVoo", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(voo)
+    })
+    .then(response => {
+        console.log("Status da resposta:", response.status);
+        console.log("Content-Type:", response.headers.get("content-type"));
 
+        if (!response.ok) {
+            throw new Error(`Erro na requisição: ${response.status}`); // 🔹 Se a resposta não for 200-299, lança erro
+        }
 
-//     // .then(response => response.json())
-//     // .then(data => {
-//     //     alert("Voo cadastrado com sucesso!");
-//     //     console.log("Resposta da API:", data);
-//     // })
-//     .catch(error => console.error("Erro ao cadastrar voo:", error));
+        return response.text(); // 🔹 Lê como texto primeiro
+    })
+    .then(data => {
+        if (!data) {
+            console.warn("Resposta vazia do servidor!");
+            return;
+        }
+
+        try {
+            const jsonData = JSON.parse(data);
+            console.log("Voo cadastrado com sucesso!", jsonData);
+        } catch (error) {
+            console.error("Erro ao converter resposta para JSON:", error);
+        }
+    })
+    .catch(error => console.error("Erro ao cadastrar voo:", error));
 });
         
     </script>

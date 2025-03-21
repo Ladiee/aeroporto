@@ -12,7 +12,18 @@ public class Companhia {
         this.nome = nome;
         this.pais = pais;
         this.contato = contato;
-        companhias.add(this);
+        if (companhiaExiste(nome) == false){
+            companhias.add(this);
+        }
+    }
+
+    private boolean companhiaExiste(String nome){
+        for (Companhia companhia : companhias) {
+            if (nome.equals(companhia.nome)){
+                return true;
+            } 
+        }
+        return false; 
     }
 
     public void setNome(String nome) {

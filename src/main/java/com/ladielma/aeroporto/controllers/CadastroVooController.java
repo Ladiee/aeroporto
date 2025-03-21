@@ -15,7 +15,7 @@ import com.ladielma.aeroporto.classes.Voo;
 
 
 @RestController
-@RequestMapping("/voos")
+@RequestMapping("/cadastroVoo")
 public class CadastroVooController {
 
     @PostMapping

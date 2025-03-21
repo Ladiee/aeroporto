@@ -3,6 +3,8 @@ package com.ladielma.aeroporto.classes;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import com.ladielma.aeroporto.classes.Voo.StatusVoo;
+
 public class Voo {
     enum StatusVoo {
         ATRASADO, CANCELADO, CONFIRMADO, EMBARQUE_PROXIMO, EMBARQUE_IMEDIATO, POUSANDO, EM_SOLO;
@@ -84,7 +86,7 @@ public class Voo {
         this.terminal = terminal;
         this.origemDestino = origemDestino;
         this.companhia = companhia;
-        this.statusVoo = status;
+        this.statusVoo = StatusVoo.CONFIRMADO;
         this.aviao = aviao;
         this.assentos = new Assento[aviao.getQtdAssentos()];
         for (int i = 0; i < aviao.getQtdAssentos(); i++) {
