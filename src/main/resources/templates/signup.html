@@ -4,221 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/styles/signup.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7-beta.19/jquery.inputmask.min.js"></script>
-
-
 </head>
+<body class="bg-[#101828] flex flex-col justify-center items-center ">
+    <header class="w-full bg-white border-gray-200 dark:bg-gray-900">
+        <nav class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <a th:href="@{/}" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <img src="/img/aviao-logo.png" alt="Logo site" width="40" height="40" />
+                <span style="color: #2B7FFF" class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Aeroporto Internacional do Guamá</span>
+            </a>
+        </nav>
+    </header>
+    <hr style="color: gray !important; width: 100%;">
 
 
-<div th:if="${!clienteLogado}" class="container">
-    <!-- Mensagem de erro visível caso exista -->
-    <div th:if="${erro}" class="alert alert-danger text-center" style="background-color: rgb(235, 107, 107); margin-top: 10px;">
-        <p th:text="${erro}"></p>
+    <div th:if="${!clienteLogado}" class="container mx-auto p-4 flex flex-col items-center">
+        <div th:if="${erro}" class="bg-red-500 text-white text-center p-2 rounded-md mb-4 w-full max-w-md">
+            <p th:text="${erro}"></p>
+        </div>
+        
+        <div class="bg-[#1E2939] p-6 rounded-lg shadow-md w-full max-w-2xl">
+            <h2 class="text-2xl font-semibold text-center mb-4" style="color: #FFFFFF;">Crie sua conta aqui!</h2>
+            <form id="signupForm" th:action="@{/signup}" method="POST" class="grid grid-cols-2 gap-4">
+                <div>
+                    <label for="emailS" class="block font-medium">Email</label>
+                    <input type="email" id="emailS" name="emailS" class="w-full p-2 border rounded-md" required>
+                </div>
+                <div>
+                    <label for="nomeUsuario" class="block font-medium">Nome</label>
+                    <input type="text" id="nomeUsuario" name="nomeUsuario" class="w-full p-2 border rounded-md" required>
+                </div>
+                <div>
+                    <label for="telefone" class="block font-medium">Telefone</label>
+                    <input type="text" id="telefone" name="telefone" class="w-full p-2 border rounded-md" placeholder="(XX) XXXXX-XXXX" required>
+                </div>
+                <div>
+                    <label for="cpf" class="block font-medium">CPF</label>
+                    <input type="text" id="cpf" name="cpf" placeholder="XXX.XXX.XXX-XX" class="w-full p-2 border rounded-md" required>
+                </div>
+                <div>
+                    <label for="dataDeNascimento" class="block font-medium">Data de Nascimento</label>
+                    <input type="date" id="dataDeNascimento" name="dataDeNascimento" class="w-full p-2 border rounded-md" required>
+                </div>
+                <div>
+                    <label for="nacionalidade" class="block font-medium">Nacionalidade</label>
+                    <input type="text" id="nacionalidade" name="nacionalidade" class="w-full p-2 border rounded-md" required>
+                </div>
+                <div class="col-span-2">
+                    <label class="block font-medium">Sexo</label>
+                    <div class="flex gap-4">
+                        <label class="flex items-center gap-2"><input type="radio" name="sexo" value="1" required> Masculino</label>
+                        <label class="flex items-center gap-2"><input type="radio" name="sexo" value="2"> Feminino</label>
+                        <label class="flex items-center gap-2"><input type="radio" name="sexo" value="3"> Outro</label>
+                    </div>
+                </div>
+                <div>
+                    <label for="passwordS" class="block font-medium">Senha</label>
+                    <input type="password" id="passwordS" name="passwordS" class="w-full p-2 border rounded-md" required>
+                </div>
+                <div>
+                    <label for="confirmPasswordS" class="block font-medium">Confirmar Senha</label>
+                    <input type="password" id="confirmPasswordS" name="confirmPasswordS" class="w-full p-2 border rounded-md" required>
+                </div>
+                <div class="col-span-2">
+                    <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">Criar conta</button>
+                </div>
+                <div class="col-span-2 text-center">
+                    <a th:href="@{/}"
+                        class="text-blue-600 hover:underline dark:text-blue-400">
+                        Voltar
+                    </a>
+                </div>
+            </form>
+        </div>
     </div>
     
-    <!-- Mensagem de erro dinâmica -->
-    <div class="error-message d-none alert alert-danger text-center" style="background-color: rgb(235, 107, 107); margin-top: 10px;">
-        <p id="error-text"></p>
+    <div th:unless="${!clienteLogado}" class="container mx-auto p-4 flex justify-center">
+        <div class="bg-[#1E2939] p-6 rounded-lg shadow-md w-full max-w-sm text-center">
+            <h2 class="text-xl font-semibold">Cliente logado!</h2>
+            <p class="mb-4 alerta">Você já está logado!</p>
+            <a href="/" class="block w-full bg-red-500 text-white py-2 rounded-md hover:bg-red-600">Voltar</a>
+        </div>
     </div>
-
-    <!-- Card Responsivo -->
-    <div class="card p-4 shadow-lg mx-auto" style="max-width: 500px; width: 100%;">
-        <h2 class="text-center">Crie sua conta aqui!</h2>
-
-        <form id="signupForm" th:action="@{/signup}" method="POST">
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <label for="emailS" class="form-label"><strong>Email</strong></label>
-                    <input type="email" class="form-control" id="emailS" name="emailS" required>
-                </div>
-
-                <div class="col-md-6">
-                    <label for="nomeUsuario" class="form-label"><strong>Nome</strong></label>
-                    <input type="text" class="form-control" id="nomeUsuario" name="nomeUsuario" required>
-                </div>
-
-                <div class="col-md-6">
-                    <label for="telefone" class="form-label"><strong>Telefone</strong></label>
-                    <input type="text" class="form-control" id="telefone" name="telefone" placeholder="(XX) XXXXX-XXXX" required>
-                </div>
-
-                <div class="col-md-6">
-                    <label for="cpf" class="form-label"><strong>CPF</strong></label>
-                    <input type="text" class="form-control" id="cpf" name="cpf" required>
-                </div>
-
-                <div class="col-md-6">
-                    <label for="dataDeNascimento" class="form-label"><strong>Data de Nascimento</strong></label>
-                    <input type="date" class="form-control" id="dataDeNascimento" name="dataDeNascimento" required>
-                </div>
-
-                <div class="col-md-6">
-                    <label><strong>Sexo:</strong></label><br>
-                    <div class="escolha-sexo">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" id="masculino" name="sexo" value="1" required>
-                        <label class="form-check-label" for="masculino">Masculino</label>
-                    </div>
-
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" id="feminino" name="sexo" value="2">
-                        <label class="form-check-label" for="feminino">Feminino</label>
-                    </div>
-
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" id="outro" name="sexo" value="3">
-                        <label class="form-check-label" for="outro">Outro</label>
-                    </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <label for="nacionalidade" class="form-label"><strong>Nacionalidade</strong></label>
-                    <input type="text" class="form-control" id="nacionalidade" name="nacionalidade" required>
-                </div>
-
-                <div class="col-md-6">
-                    <label for="passwordS" class="form-label"><strong>Senha</strong></label>
-                    <input type="password" class="form-control" id="passwordS" name="passwordS" required>
-                </div>
-
-                <div class="col-md-6">
-                    <label for="confirmPasswordS" class="form-label"><strong>Confirmar Senha</strong></label>
-                    <input type="password" class="form-control" id="confirmPasswordS" name="confirmPasswordS" required>
-                </div>
-            </div>
-
-            <button type="submit" class="btn btn-primary w-100 mt-3">Criar conta</button>
-        </form>
-    </div>
-</div>
-
-<div th:unless="${!clienteLogado}" class="container">
-    <div class="card p-4 shadow-lg" style="max-width: 350px;">
-        <h2 class="text-center">Cliente logado!</h2>
-        <p class="text-center">Você já está logado!</p>
-        <a href="/" class="btn btn-danger w-100">Sair</a>
-    </div>
-
-</div>
-
-
-
-
+    
     <script>
         $(document).ready(function(){
             $("#telefone").inputmask("(99) 99999-9999");
             $("#cpf").inputmask("999.999.999-99");
         });
     </script>
-
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("signupForm").addEventListener("submit", function (event) {
-        // Coleta dos valores para verificação em front end
-        const email = document.getElementById("emailS").value;
-        const nomeUsuario = document.getElementById("nomeUsuario").value;
-        const phone = document.getElementById("telefone").value;
-        const cpf = document.getElementById("cpf").value;
-        const password = document.getElementById("passwordS").value;
-        const confirmPassword = document.getElementById("confirmPasswordS").value;
-
-        // Regex email
-        const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        // Regex nome
-        const regexNome = /^[A-Z][a-z]{2,}\s[A-Z][a-z]{2,}$/;
-        // Regex senha
-        const regexSenha = /^(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{6,}$/;
-        // Regex telefone
-        const phoneRegex = /^\(\d{2}\) \d{5}-\d{4}$/;
-        // Regex CPF
-        const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
-
-        // Seleciona a div de erro corretamente
-        const errorMessageDiv = document.querySelector(".error-message");
-        const errorText = document.getElementById("error-text");
-
-        // Se a div existir, esconde antes de qualquer erro novo
-        if (errorMessageDiv) {
-            errorMessageDiv.style.display = "none";
-            errorText.innerText = "";
-        }
-
-        // Função para exibir erro e impedir envio
-        function showError(message) {
-            if (errorMessageDiv) {
-                alert("Erro ao enviar os dados.");
-                errorText.innerText = message;
-                errorMessageDiv.style.display = "block";
-            }
-            event.preventDefault();
-        }
-
-        // Validação de e-mail
-        if (!regexEmail.test(email)) {
-            showError("O email está no formato incorreto. Exemplo: exemplo@gmail.com");
-            return;
-        }
-
-        // Validação do nome
-        if (!regexNome.test(nomeUsuario)) {
-            showError("O nome está no formato incorreto. Exemplo: Nome Sobrenome");
-            return;
-        }
-
-        // Validação do telefone
-        if (!phoneRegex.test(phone)) {
-            showError("O número de telefone está no formato incorreto. Exemplo: (XX) XXXXX-XXXX");
-            return;
-        }
-
-        // Validação do CPF (formato apenas)
-        if (!cpfRegex.test(cpf)) {
-            showError("CPF inválido. Use o formato XXX.XXX.XXX-XX");
-            return;
-        }
-
-        // Validação de senha
-        if (!regexSenha.test(password)) {
-            showError(
-                "A senha deve conter no mínimo 6 caracteres, uma letra maiúscula, um número e um caractere especial."
-            );
-            return;
-        }
-
-        // Verificação de senhas iguais
-        if (password !== confirmPassword) {
-            showError("As senhas não coincidem.");
-            return;
-        }
-    });
-});
-        </script>
-
-<!-- <script>
-    $(document).ready(function(){
-        $("#signupForm").submit(function(event){
-            event.preventDefault(); // Evita o recarregamento da página
-            
-            let formData = $(this).serialize(); // Serializa os dados do formulário
-
-            
-            
-            $.post("/signup", formData, function(response) {
-                alert(response); // Exibe a resposta do servidor
-                $("#signupForm")[0].reset(); // Reseta o formulário após o envio
-            }).fail(function() {
-                alert("Erro ao enviar os dados.");
-            });
-        });
-    });
-</script> -->
-
 </body>
 </html>

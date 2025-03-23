@@ -1,3 +1,4 @@
+Marcelo@gerente, Marcelo Malcher, (91) 98812-8785, 019.364.772-97, 2005-01-22, 1, Brasileiro, Gerente#01, gerente
 melo@melo, asd, (22) 22222-2222, 123.456.789-00, 2025-03-01, 1, Brasileiro, asd
 bolosnaro@foralula, bolsonaro, (22) 17221-7221, 123.456.789-00, 2022-02-22, 3, Brasileiro, bolo
 oi@oi, oi, (44) 44444-4444, 444.444.444-44, 2025-03-22, 2, ddd, ddd
@@ -14,4 +15,5 @@ melo@melo, asd, (22) 22222-2222, 123.456.789-00, 2025-03-01, 1, asd, dsa
 melo@melo, asd, (22) 22222-2222, 123.456.789-00, 2025-03-01, 1, Brasileiro, asd
 marcelo@gmail.com, Marcelo Melo, (22) 22222-2222, 123.456.789-00, 2025-03-01, 1, Brasileiro, Marc3lo#
 rafa@gmail.com, Rafa Malcher, (22) 22222-2222, 123.456.789-00, 2025-03-01, 1, Brasileiro, Raf#22
-Anna@email.com, Aninha Clara, (66) 66666-6688, 666.666.666-66, 2025-03-08, 2, Brasileiro, Aninha#10
+Anna@email.com, Anna Clara, (66) 66666-6688, 666.666.666-66, 2025-03-08, 2, Brasileiro, Aninha#10
+marcelinho@gmail.com, Marcelinho Dois, (51) 51515-1515, 515.151.515-15, 2025-03-07, 1, Brasileiro, Marcel0#

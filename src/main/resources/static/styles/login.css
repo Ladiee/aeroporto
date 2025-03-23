@@ -1,29 +1,11 @@
-body{
-    background-image: url("/img/login-img.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    backdrop-filter: blur(2px);
+h2{
+    color: #FFFFFF;
 }
 
-.container {
-    display: flex;
-    flex-direction: column; /* Garante que as divs fiquem uma em cima da outra */
-    align-items: center; /* Centraliza no meio da página (opcional) */
-    flex: 1; /* Faz o conteúdo expandir sem empurrar o footer para fora */
+label{
+    color: #D1D5D7 !important;
 }
 
-#error-message{
-    border-radius: 10px !important;
-    padding: 5px;
-}
-
-.card {
-    background-color: rgba(255, 255, 255, 0.2) !important; /* Branco com 50% de transparência */
-    border-color: white !important;
-    height: auto;
-}
-
-a{
-    color: black !important;
+.alerta{
+    color: #D1D5D7 !important;
 }

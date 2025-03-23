@@ -1,4 +1,4 @@
-package com.ladielma.aeroporto.security;
+package com.ladielma.aeroporto.Security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,14 +15,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-        .csrf(csrf -> csrf.disable())
+                .csrf(csrf -> csrf.disable())
                 // Define as regras de acesso para as partes da aplicação
                 .authorizeHttpRequests(authorizeRequests -> {
                     authorizeRequests
-                            
+
                             .requestMatchers("/", "/img/**", "/signup", "/styles/**", "/js/**", "/alterar-dados",
                                     "/cadastroVoo", "/homeFunc", "/favicon.ico",
-                                    "/login", "/pagamento", "/assentos", "/redefinir-senha")
+                                    "/login", "/pagamento", "/assentos", "/redefinir-senha", "voos", "sobre_passagem")
                             .permitAll()
                             .requestMatchers(HttpMethod.POST, "/cadastroVoo")
                             .permitAll();

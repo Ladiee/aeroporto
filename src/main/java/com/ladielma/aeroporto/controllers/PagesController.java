@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ladielma.aeroporto.classes.Aviao;
 import com.ladielma.aeroporto.classes.Companhia;
 
-
 @Controller
 public class PagesController {
 
@@ -45,10 +44,9 @@ public class PagesController {
         }
         return "home";
     }
-    
 
     @GetMapping("/cadastroVoo")
-    public String cadastroVoo(Model model){
+    public String cadastroVoo(Model model) {
         model.addAttribute("avioes", Aviao.getAvioes());
         model.addAttribute("companhias", Companhia.getCompanhias());
         return "cadastroVoo";
@@ -60,7 +58,6 @@ public class PagesController {
         model.addAttribute("companhias", Companhia.getCompanhias());
         return "homeFunc";
     }
-    
 
     @GetMapping("/alterar-dados")
     public String teste(Model model) {
@@ -112,5 +109,15 @@ public class PagesController {
     @GetMapping("/assentos")
     public String assentos() {
         return "assentos";
+    }
+
+    @GetMapping("/voos")
+    public String voos() {
+        return "voos";
+    }
+
+    @GetMapping("/sobre_passagem")
+    public String sobrePassagem() {
+        return "sobre_passagem";
     }
 }

@@ -106,7 +106,9 @@ public class SignupController {
             return new RedirectView("/signup");
         }
 
-        return new RedirectView("/");
+        redirectAttributes.addFlashAttribute("sucesso",
+                "Cadastro realizado com sucesso! Para acessar o site, realize o login!");
+        return new RedirectView("/login");
     }
 
     private boolean verificarEmail(String email) {
