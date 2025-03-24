@@ -1,14 +1,10 @@
 package com.ladielma.aeroporto.controllers;
 
-import java.io.IOException;
-import java.util.Map;
-
-import org.apache.catalina.connector.Response;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ladielma.aeroporto.classes.Voo;
@@ -22,6 +18,27 @@ public class CadastroVooController {
     public ResponseEntity<Voo> cadastrarVoo(@RequestBody Voo voo){
         return ResponseEntity.ok(voo); // 🔹 Retorna o voo cadastrado
     }
+
+    @PostMapping("/cadastroVoo/atualizarStatus")
+    public String atualizarStatus(@RequestParam("id") String id, @RequestParam("novoStatus") String novoStatus) {
+        try {
+            Voo.StatusVoo statusEnum = Voo.StatusVoo.valueOf(novoStatus); // Converte a string para o Enum
+    
+            for (Voo voo : Voo.getVoos()) {
+                if (voo.getIdVoo().equals(id)) {
+                    voo.setStatusVoo(statusEnum);
+                    break;
+                }
+            }
+        } catch (IllegalArgumentException e) {
+            // Lida com o caso de um status inválido
+            System.out.println("Status inválido: " + novoStatus);
+            return "redirect:/erro";
+        }
+    
+        return "redirect:/homeFunc"; // Redireciona para a página principal
+    }
+
 }
 
 

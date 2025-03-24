@@ -4,15 +4,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.ladielma.aeroporto.classes.Voo;
 import com.ladielma.aeroporto.AeroportoApplication;
-import com.ladielma.aeroporto.classes.Cliente;
-
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.ladielma.aeroporto.classes.Aviao;
+import com.ladielma.aeroporto.classes.Cliente;
 import com.ladielma.aeroporto.classes.Companhia;
 import com.ladielma.aeroporto.classes.Funcionario;
+import com.ladielma.aeroporto.classes.Voo;
 
 @Controller
 public class PagesController {
@@ -55,7 +52,9 @@ public class PagesController {
     public String cadastroVoo(Model model) {
         model.addAttribute("avioes", Aviao.getAvioes());
         model.addAttribute("companhias", Companhia.getCompanhias());
+        model.addAttribute("statusList", Voo.StatusVoo.values());
         model.addAttribute("funcionarios", !Funcionario.getFuncionarios().isEmpty());
+
         return "cadastroVoo";
     }
 

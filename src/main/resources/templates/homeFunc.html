@@ -21,24 +21,6 @@
                     <span th:text="${funcionarioNome}"></span>
                 </a>
             </li>
-            <li>
-            <a href="#" class="block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Home</a>
-            </li>
-            <li>
-            <a href="#" class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
-            </li>
-            <li>
-            <a href="#" class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</a>
-            </li>
-            <li>
-            <a href="#" class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Pricing</a>
-            </li>
-            <li>
-            <a href="#" class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
-            </li>
-        </ul>
-        </div>
-        </div>
     </nav>
 
 
@@ -74,7 +56,7 @@
                         Companhia
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Horário
+                        Dia/Horário
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Terminal
@@ -103,13 +85,29 @@
                     </td>
                     <th th:text="${voo.idVoo}" scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"></th>
                     <td th:text="${voo.companhia.nome}" class="px-6 py-4"></td>
-                    <td th:text="${#temporals.format(voo.horario, 'HH:mm')}" class="px-6 py-4"></td>
+                    <td th:text="${#temporals.format(voo.horario, 'dd-MM-yyyy HH:mm')}" class="px-6 py-4"></td>
                     <td th:text= "${voo.terminal}" class="px-6 py-4"></td>
                     <td th:text="${voo.getOrigemDestino()}" class="px-6 py-4"></td>
                     <td th:text= "${voo.statusVooFormatado}" class="px-6 py-4"></td>
                     <td th:text= "${voo.aviao.modelo}" class="px-6 py-4"></td>
                     <td class="px-6 py-4">
-                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
+                        <a href="#" th:attr="onclick='toggleDropdown(\'' + ${voo.idVoo} + '\')'">Editar</a> /
+                        <a href="#" th:attr="onclick='confirmDelete(event, \'' + ${voo.idVoo} + '\')'">Deletar</a>
+
+
+                        <!-- Dropdown para editar status -->
+                        <div th:id="'dropdown-' + ${voo.idVoo}" class="hidden bg-gray-100 p-2 rounded">
+                            <form th:action="@{/cadastroVoo/atualizarStatus}" method="post">
+                                <input type="hidden" name="id" th:value="${voo.idVoo}" />
+                                <select name="novoStatus">
+                                    <option th:each="status : ${statusList}" th:value="${status}" th:text="${status}"></option>
+                                </select>
+                                <button type="submit" class="bg-blue-500 text-white px-2 py-1 rounded">Salvar</button>
+                            </form>
+                        </div>
+                        <!-- <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
+                        /
+                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Deletar</a> -->
                     </td>
             </tbody>
         </table>
@@ -188,8 +186,6 @@
     </div>
 </div>
 
-
-    <!-- Mostra os aviões 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div class="pb-4 bg-white dark:bg-gray-900">
             <label for="table-search" class="sr-only">Search</label>
@@ -239,7 +235,7 @@
                     <td th:text= "${aviao.qtdAssentosPrimeiraClasse}" class="px-6 py-4"></td>
             </tbody>
         </table>
-    </div> -->
+    </div>
 
     
     <div th:if="${funcionario}" class="fixed bottom-4 right-4 flex space-x-2">
@@ -247,17 +243,42 @@
             <span class="text-lg">✈️</span>
             <span class="font-medium">Novo Voo</span>
         </button>
-    
-        <button class="flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-green-700">
-            <span class="text-lg">🏢</span>
-            <span class="font-medium">Nova Companhia</span>
-        </button>
-    
-        <button class="flex items-center space-x-2 bg-red-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-red-700">
-            <span class="text-lg">🛬</span>
-            <span class="font-medium">Novo Avião</span>
-        </button>
     </div>
+
+    <script>
+        function toggleDropdown(id) {
+            let dropdown = document.getElementById(`dropdown-${idVoo}`);
+            dropdown.classList.toggle("hidden");
+        }
+    
+        function confirmDelete(event) {
+            if (!confirm("Deseja cancelar voo?")) {
+                event.preventDefault(); // Impede a exclusão caso o usuário cancele
+            }
+        }
+
+        function confirmDelete(event, idVoo) {
+        event.preventDefault(); // Impede que o link recarregue a página
+
+        if (confirm("Deseja cancelar o voo?")) {
+            fetch("/homeFunc", {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id: idVoo }) // Passando o ID no corpo da requisição
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Voo deletado com sucesso!");
+                    location.reload(); // Atualiza a página para refletir a remoção
+                } else {
+                    response.text().then(text => alert(text)); // Exibe erro se houver
+                }
+            })
+            .catch(error => console.error("Erro ao deletar voo:", error));
+        }
+    }
+
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 </body>

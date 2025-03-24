@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import com.ladielma.aeroporto.classes.Voo.StatusVoo;
 
 public class Voo {
-    enum StatusVoo {
+    public enum StatusVoo {
         ATRASADO, CANCELADO, CONFIRMADO, EMBARQUE_PROXIMO, EMBARQUE_IMEDIATO, POUSANDO, EM_SOLO;
     }
 

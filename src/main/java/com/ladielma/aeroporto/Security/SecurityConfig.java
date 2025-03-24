@@ -1,10 +1,10 @@
-package com.ladielma.aeroporto.Security;
+package com.ladielma.aeroporto.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -20,11 +20,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests -> {
                     authorizeRequests
 
-                            .requestMatchers("/", "/img/**", "/signup", "/styles/**", "/js/**", "/alterar-dados",
+                            .requestMatchers("/", "/img/**", "/signup", "/styles/**", "/js/**", "/alterar-dados", "cadastroVoo/**",
                                     "/cadastroVoo", "/homeFunc", "/favicon.ico",
                                     "/login", "/pagamento", "/assentos", "/redefinir-senha", "voos", "sobre_passagem")
                             .permitAll()
-                            .requestMatchers(HttpMethod.POST, "/cadastroVoo")
+                            .requestMatchers(HttpMethod.POST, "/cadastroVoo", "/cadastroVoo/**")
                             .permitAll();
                     authorizeRequests.anyRequest().authenticated();
 
