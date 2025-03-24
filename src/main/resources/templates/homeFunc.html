@@ -10,9 +10,9 @@
 <body>
     <nav class="bg-white border-gray-200 dark:bg-gray-900 shadow-md">
         <div class="max-w-screen-lg mx-auto flex flex-wrap items-center justify-between p-4">
-        <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" />
-            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+        <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <img src="img/aviao-logo.png" class="h-8" alt="Aeroporto Logo" />
+            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Aeroporto Internacional do Guamá</span>
         </a>
         <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
         <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
@@ -29,26 +29,11 @@
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div class="pb-4 bg-grey dark:bg-gray-900 flex justify-between items-center px-4 pt-4">
             <label for="table-search" class="sr-only">Search</label>
-            <div class="relative mt-1">
-                <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                    </svg>
-                </div>
-                <input type="text" id="table-search" class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for items">
-            </div>
-            <!-- Título "Voos" alinhado à direita -->
             <h2 class="text-xl font-semibold text-gray-700">Voos Cadastrados</h2>
         </div>
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th scope="col" class="p-4">
-                        <div class="flex items-center">
-                            <input id="checkbox-all-search" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="checkbox-all-search" class="sr-only">checkbox</label>
-                        </div>
-                    </th>
                     <th scope="col" class="px-6 py-3">
                         ID Voo
                     </th>
@@ -77,12 +62,6 @@
             </thead>
             <tbody>
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600" th:each="voo : ${voos}">
-                    <td class="w-4 p-4">
-                        <div class="flex items-center">
-                            <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                        </div>
-                    </td>
                     <th th:text="${voo.idVoo}" scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"></th>
                     <td th:text="${voo.companhia.nome}" class="px-6 py-4"></td>
                     <td th:text="${#temporals.format(voo.horario, 'dd-MM-yyyy HH:mm')}" class="px-6 py-4"></td>
@@ -117,25 +96,11 @@
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div class="pb-4 bg-gray dark:bg-gray-900 pb-4 bg-grey dark:bg-gray-900 flex justify-between items-center px-4 pt-4">
             <label for="table-search" class="sr-only">Search</label>
-            <div class="relative mt-1">
-                <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                    </svg>
-                </div>
-                <input type="text" id="table-search-companhia" class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for items">
-            </div>
             <h2 class="text-xl font-semibold text-gray-700">Companhias Aéreas Cadastradas</h2>
         </div>
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th scope="col" class="p-4">
-                        <div class="flex items-center">
-                            <input id="checkbox-all-search-companhia" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="checkbox-all-search" class="sr-only">checkbox</label>
-                        </div>
-                    </th>
                     <th scope="col" class="px-6 py-3">
                         Companhia
                     </th>
@@ -152,12 +117,6 @@
             </thead>
             <tbody>
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600" th:each="companhia : ${companhias}">
-                    <td class="w-4 p-4">
-                        <div class="flex items-center">
-                            <input id="checkbox-table-search-1-companhia" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                        </div>
-                    </td>
                     <th th:text="${companhia.nome}" scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"></th>
                     <td th:text="${companhia.pais}" class="px-6 py-4"></td>
                     <td th:text= "${companhia.contato}" class="px-6 py-4"></td>
@@ -186,62 +145,11 @@
     </div>
 </div>
 
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <div class="pb-4 bg-white dark:bg-gray-900">
-            <label for="table-search" class="sr-only">Search</label>
-            <div class="relative mt-1">
-                <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                    </svg>
-                </div>
-                <input type="text" id="table-search" class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for items">
-            </div>
-        </div>
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                    <th scope="col" class="p-4">
-                        <div class="flex items-center">
-                            <input id="checkbox-all-search" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="checkbox-all-search" class="sr-only">checkbox</label>
-                        </div>
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Modelo
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Classe Economica
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Classe Executiva
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Primeira Classe
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600" th:each="aviao : ${avioes}">
-                    <td class="w-4 p-4">
-                        <div class="flex items-center">
-                            <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                        </div>
-                    </td>
-                    <th th:text="${aviao.modelo}" scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"></th>
-                    <td th:text="${aviao.qtdAssentosEconomicos}" class="px-6 py-4"></td>
-                    <td th:text= "${aviao.qtdAssentosExecutivos}" class="px-6 py-4"></td>
-                    <td th:text= "${aviao.qtdAssentosPrimeiraClasse}" class="px-6 py-4"></td>
-            </tbody>
-        </table>
-    </div>
-
     
     <div th:if="${funcionario}" class="fixed bottom-4 right-4 flex space-x-2">
         <button class="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-700">
             <span class="text-lg">✈️</span>
-            <span class="font-medium">Novo Voo</span>
+            <a th:href="@{/cadastroVoo}"><span class="font-medium">Novo Voo</span></a>
         </button>
     </div>
 
@@ -251,33 +159,6 @@
             dropdown.classList.toggle("hidden");
         }
     
-    //     function confirmDelete(event) {
-    //         if (!confirm("Deseja cancelar voo?")) {
-    //             event.preventDefault(); // Impede a exclusão caso o usuário cancele
-    //         }
-    //     }
-
-    //     function confirmDelete(event, idVoo) {
-    //     event.preventDefault(); // Impede que o link recarregue a página
-
-    //     if (confirm("Deseja cancelar o voo?")) {
-    //         fetch("/homeFunc", {
-    //             method: "DELETE",
-    //             headers: { "Content-Type": "application/json" },
-    //             body: JSON.stringify({ id: idVoo }) // Passando o ID no corpo da requisição
-    //         })
-    //         .then(response => {
-    //             if (response.ok) {
-    //                 alert("Voo deletado com sucesso!");
-    //                 location.reload(); // Atualiza a página para refletir a remoção
-    //             } else {
-    //                 response.text().then(text => alert(text)); // Exibe erro se houver
-    //             }
-    //         })
-    //         .catch(error => console.error("Erro ao deletar voo:", error));
-    //     }
-    // }
-
     </script>
 
 <script>
@@ -286,20 +167,20 @@
         
         if (confirm("Tem certeza que deseja deletar este voo?")) {
             fetch('/homeFunc/homeFunc?id=' + idVoo, {
-    method: 'DELETE'
-}).then(response => {
-    if (response.ok) {
-        alert("Voo deletado com sucesso!");
-        location.reload(); // Recarrega a página para atualizar a tabela
-    } else {
-        response.text().then(errorMessage => {
-            alert("Erro ao deletar voo: " + errorMessage);  // Exibe o erro retornado pelo backend
+            method: 'DELETE'
+        }).then(response => {
+            if (response.ok) {
+                alert("Voo deletado com sucesso!");
+                location.reload(); // Recarrega a página para atualizar a tabela
+            } else {
+                response.text().then(errorMessage => {
+                    alert("Erro ao deletar voo: " + errorMessage);  // Exibe o erro retornado pelo backend
+                });
+            }
+        }).catch(error => {
+            console.error('Erro:', error);
+            alert("Erro inesperado ao tentar deletar o voo.");
         });
-    }
-}).catch(error => {
-    console.error('Erro:', error);
-    alert("Erro inesperado ao tentar deletar o voo.");
-});
         }
     }
 </script>
