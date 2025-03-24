@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.ladielma.aeroporto.classes.Cliente;
+import com.ladielma.aeroporto.classes.Funcionario;
 
 // import java.io.*;
 
@@ -25,33 +26,41 @@ public class LogoutController {
     @PostMapping
     public RedirectView logout() {
         System.out.println("Aqui");
-        String nome = Cliente.getClientes().get(0).getNome();
-        String telefone = Cliente.getClientes().get(0).getTelefone();
-        String email = Cliente.getClientes().get(0).getEmail();
 
-        try {
-            Path caminhoArquivo = Paths.get("src/main/resources/clientes.txt");
-            List<String> linhas = Files.readAllLines(caminhoArquivo); // Lê todas as linhas do arquivo
-            List<String> novasLinhas = new ArrayList<>(); // Lista para armazenar as linhas modificadas
-
-            for (String line : linhas) {
-                String[] dados = line.split(", ");
-                if (dados[0].equals(email)) {
-                    // Atualiza os dados do cliente
-                    dados[1] = nome;
-                    dados[2] = telefone;
-                }
-                // Adiciona a linha (modificada ou não) na nova lista
-                novasLinhas.add(String.join(", ", dados));
-            }
-
-            // Reescreve o arquivo com os dados atualizados
-            Files.write(caminhoArquivo, novasLinhas, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
-
-        } catch (IOException e) {
-            return new RedirectView("/login");
+        if (!Funcionario.getFuncionarios().isEmpty()) {
+            Funcionario.getFuncionarios().clear();
         }
-        Cliente.getClientes().clear();
+
+        if (!Cliente.getClientes().isEmpty()) {
+            String nome = Cliente.getClientes().get(0).getNome();
+            String telefone = Cliente.getClientes().get(0).getTelefone();
+            String email = Cliente.getClientes().get(0).getEmail();
+            try {
+                Path caminhoArquivo = Paths.get("src/main/resources/clientes.txt");
+                List<String> linhas = Files.readAllLines(caminhoArquivo); // Lê todas as linhas do arquivo
+                List<String> novasLinhas = new ArrayList<>(); // Lista para armazenar as linhas modificadas
+
+                for (String line : linhas) {
+                    String[] dados = line.split(", ");
+                    if (dados[0].equals(email)) {
+                        // Atualiza os dados do cliente
+                        dados[1] = nome;
+                        dados[2] = telefone;
+                    }
+                    // Adiciona a linha (modificada ou não) na nova lista
+                    novasLinhas.add(String.join(", ", dados));
+                }
+
+                // Reescreve o arquivo com os dados atualizados
+                Files.write(caminhoArquivo, novasLinhas, StandardOpenOption.WRITE,
+                        StandardOpenOption.TRUNCATE_EXISTING);
+
+            } catch (IOException e) {
+                return new RedirectView("/login");
+            }
+            Cliente.getClientes().clear();
+        }
+
         return new RedirectView("/");
     }
 }

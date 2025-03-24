@@ -20,7 +20,7 @@
     </header>
     <hr style="color: gray !important; width: 100%;">
 
-    <div th:if="${!clienteLogado}" class="container mx-auto p-4 flex flex-col items-center">
+    <div th:if="${!clienteLogado and !funcLogado}" class="container mx-auto p-4 flex flex-col items-center">
         <div th:if="${erro}" class="bg-red-500 text-white text-center p-2 rounded-md mb-4 w-full max-w-md">
             <p th:text="${erro}"></p>
         </div>
@@ -46,7 +46,7 @@
         </div>
     </div>
     
-    <div th:unless="${!clienteLogado}" class="container mx-auto p-4 flex justify-center">
+    <div th:if="${clienteLogado or funcLogado}" class="container mx-auto p-4 flex justify-center">
         <div class="bg-[#1E2939] p-6 rounded-lg shadow-md w-full max-w-sm text-center">
             <h2 class="text-xl font-semibold">Cliente logado!</h2>
             <p class="mb-4 alerta">Você já está logado!</p>

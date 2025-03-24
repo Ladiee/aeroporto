@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ladielma.aeroporto.classes.Aviao;
 import com.ladielma.aeroporto.classes.Companhia;
+import com.ladielma.aeroporto.classes.Funcionario;
 
 @Controller
 public class PagesController {
@@ -42,6 +43,11 @@ public class PagesController {
         } else {
             model.addAttribute("clienteNome", null);
         }
+        if (!Funcionario.getFuncionarios().isEmpty()) {
+            model.addAttribute("funcionarioNome", Funcionario.getFuncionarios().get(0).getNome());
+        } else {
+            model.addAttribute("funcionarioNome", null);
+        }
         return "home";
     }
 
@@ -49,6 +55,7 @@ public class PagesController {
     public String cadastroVoo(Model model) {
         model.addAttribute("avioes", Aviao.getAvioes());
         model.addAttribute("companhias", Companhia.getCompanhias());
+        model.addAttribute("funcionarios", !Funcionario.getFuncionarios().isEmpty());
         return "cadastroVoo";
     }
 
@@ -56,6 +63,14 @@ public class PagesController {
     public String funcionarioHome(Model model) {
         model.addAttribute("voos", Voo.getVoos());
         model.addAttribute("companhias", Companhia.getCompanhias());
+        boolean func = !Funcionario.getFuncionarios().isEmpty();
+        if (func) {
+            model.addAttribute("funcionarioNome", Funcionario.getFuncionarios().get(0).getNome());
+        } else {
+            model.addAttribute("funcionarioNome", null);
+        }
+        model.addAttribute("funcionario", func);
+
         return "homeFunc";
     }
 
@@ -74,6 +89,12 @@ public class PagesController {
         } else {
             model.addAttribute("clienteNome", null);
         }
+        if (!Funcionario.getFuncionarios().isEmpty()) {
+            model.addAttribute("funcionarioNome", Funcionario.getFuncionarios().get(0).getNome());
+        } else {
+            model.addAttribute("funcionarioNome", null);
+        }
+        model.addAttribute("funcionario", !Funcionario.getFuncionarios().isEmpty());
         return "alterar-dados";
     }
 
@@ -88,7 +109,12 @@ public class PagesController {
     @GetMapping("/login")
     public String login(Model model) {
         System.out.println("Quantidade de clientes: " + Cliente.getClientes().size());
-        boolean clienteLogado = !Cliente.getClientes().isEmpty();
+        System.out.println("Quantidade de func: " + Funcionario.getFuncionarios().size());
+        System.out.println(Funcionario.getFuncionarios().isEmpty());
+        System.out.println(Cliente.getClientes().isEmpty());
+        boolean funcLogado = !Funcionario.getFuncionarios().isEmpty();
+        boolean clienteLogado = !(Cliente.getClientes().isEmpty());
+        model.addAttribute("funcLogado", funcLogado);
         model.addAttribute("clienteLogado", clienteLogado);
         return "login";
     }
@@ -96,7 +122,11 @@ public class PagesController {
     @GetMapping("/signup")
     public String signup(Model model) {
         System.out.println("Quantidade de clientes: " + Cliente.getClientes().size());
+        System.out.println(Funcionario.getFuncionarios().isEmpty());
+        System.out.println(Cliente.getClientes().isEmpty());
+        boolean funcLogado = !Funcionario.getFuncionarios().isEmpty();
         boolean clienteLogado = !Cliente.getClientes().isEmpty();
+        model.addAttribute("funcLogado", funcLogado);
         model.addAttribute("clienteLogado", clienteLogado);
         return "signup";
     }

@@ -26,9 +26,9 @@
             </button>
             <div class="hidden w-full md:block md:w-auto" id="navbar-default">
                 <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                    <li th:if="${clienteNome}">
+                    <li th:if="${clienteNome != null or funcionarioNome != null}">
                         <a href="#" id="abrirModal" class="block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500">
-                            Olá, <span th:text="${clienteNome}"></span>!
+                            Olá, <span th:text="${clienteNome != null ? clienteNome : funcionarioNome}"></span>!
                         </a>
                     </li>
                 <li>
@@ -50,6 +50,7 @@
     </header>
     
     <hr style="color: white;">
+<div th:if="${!funcionario}">
 <div th:if="${clienteLogado}">
         <!-- Mensagem de erro visível caso exista -->
         <div th:if="${erro}" class="alert alert-danger text-center" style="background-color: rgb(235, 107, 107); margin-top: 10px;">
@@ -100,7 +101,7 @@
     <div class="relative w-full max-w-md mx-auto bg-white rounded-lg shadow dark:bg-gray-700">
         <!-- Cabeçalho do Modal -->
         <div class="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Bem-vindo, <span th:text="${clienteNome}"></span>!</h3>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Bem-vindo, <span th:text="${clienteNome != null ? clienteNome : funcionarioNome}"></span>!</h3>
             <button type="button" id="fecharModal" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
                 ✕
             </button>
@@ -130,6 +131,24 @@
         </form>
     </div>
 
+</div>
+</div>
+
+<div th:unless="${!funcionario}">
+    <div class="container">
+        <form action="" method="post" class="max-w-lg mx-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md ">
+            <h1 class="text-xl font-bold text-gray-900 dark:text-white mb-4 text-center">Você nao possui as credenciais para acessar essa página!</h1>
+        
+            <div class="mb-4">
+                <div class="mt-4 text-center">
+                    <a th:href="@{/}"
+                        class="text-blue-600 hover:underline dark:text-blue-400">
+                        Voltar
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
     
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>

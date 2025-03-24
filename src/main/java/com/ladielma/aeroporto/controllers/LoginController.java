@@ -5,6 +5,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.ladielma.aeroporto.classes.Cliente;
+import com.ladielma.aeroporto.classes.Funcionario;
 
 import java.io.*;
 
@@ -20,7 +21,13 @@ public class LoginController {
                 String[] dados = line.split(", ");
                 if (dados.length == 9) {
                     if (dados[0].equals(email) && dados[7].equals(password)) {
-                        continue;
+                        Funcionario func = new Funcionario(dados[1], dados[0], dados[2], dados[1], dados[7], dados[4],
+                                dados[3]);
+                        func.adicionarFuncionario(func);
+                        red.addFlashAttribute("sucesso",
+                                "Login realizado com sucesso!");
+                        return new RedirectView("/");
+
                     }
                 } else if (dados[0].equals(email) && dados[7].equals(password)) {
 
