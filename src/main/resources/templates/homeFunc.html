@@ -251,34 +251,58 @@
             dropdown.classList.toggle("hidden");
         }
     
-        function confirmDelete(event) {
-            if (!confirm("Deseja cancelar voo?")) {
-                event.preventDefault(); // Impede a exclusão caso o usuário cancele
-            }
-        }
+    //     function confirmDelete(event) {
+    //         if (!confirm("Deseja cancelar voo?")) {
+    //             event.preventDefault(); // Impede a exclusão caso o usuário cancele
+    //         }
+    //     }
 
-        function confirmDelete(event, idVoo) {
-        event.preventDefault(); // Impede que o link recarregue a página
+    //     function confirmDelete(event, idVoo) {
+    //     event.preventDefault(); // Impede que o link recarregue a página
 
-        if (confirm("Deseja cancelar o voo?")) {
-            fetch("/homeFunc", {
-                method: "DELETE",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ id: idVoo }) // Passando o ID no corpo da requisição
-            })
-            .then(response => {
-                if (response.ok) {
-                    alert("Voo deletado com sucesso!");
-                    location.reload(); // Atualiza a página para refletir a remoção
-                } else {
-                    response.text().then(text => alert(text)); // Exibe erro se houver
-                }
-            })
-            .catch(error => console.error("Erro ao deletar voo:", error));
-        }
-    }
+    //     if (confirm("Deseja cancelar o voo?")) {
+    //         fetch("/homeFunc", {
+    //             method: "DELETE",
+    //             headers: { "Content-Type": "application/json" },
+    //             body: JSON.stringify({ id: idVoo }) // Passando o ID no corpo da requisição
+    //         })
+    //         .then(response => {
+    //             if (response.ok) {
+    //                 alert("Voo deletado com sucesso!");
+    //                 location.reload(); // Atualiza a página para refletir a remoção
+    //             } else {
+    //                 response.text().then(text => alert(text)); // Exibe erro se houver
+    //             }
+    //         })
+    //         .catch(error => console.error("Erro ao deletar voo:", error));
+    //     }
+    // }
 
     </script>
+
+<script>
+    function confirmDelete(event, idVoo) {
+        event.preventDefault();  // Evita que o link recarregue a página
+        
+        if (confirm("Tem certeza que deseja deletar este voo?")) {
+            fetch('/homeFunc/homeFunc?id=' + idVoo, {
+    method: 'DELETE'
+}).then(response => {
+    if (response.ok) {
+        alert("Voo deletado com sucesso!");
+        location.reload(); // Recarrega a página para atualizar a tabela
+    } else {
+        response.text().then(errorMessage => {
+            alert("Erro ao deletar voo: " + errorMessage);  // Exibe o erro retornado pelo backend
+        });
+    }
+}).catch(error => {
+    console.error('Erro:', error);
+    alert("Erro inesperado ao tentar deletar o voo.");
+});
+        }
+    }
+</script>
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 </body>
