@@ -11,8 +11,7 @@ public class Cliente extends Usuario {
     private static ArrayList<Cliente> clientes = new ArrayList<>();
     private int pontos;
 
-    public Cliente(String nome, String email, String telefone, String nomeUsuario, String senha, String dataNascimento,
-            String cpf, String nacionalidade, String sexo, int pontos) {
+    public Cliente(String nome, String email, String telefone, String nomeUsuario, String senha, String dataNascimento, String cpf, String nacionalidade, String sexo, int pontos) {
         super(nome, email, telefone, nomeUsuario, senha);
         this.dataNascimento = dataNascimento;
         this.cpf = cpf;
