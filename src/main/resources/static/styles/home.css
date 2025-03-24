@@ -11,7 +11,6 @@ body {
 
 .h2-info {
     font-size: x-large;
-    background: beige;
     color: black;
     padding: 10px;
     margin: -20px -20px 20px -20px;
@@ -30,6 +29,31 @@ body {
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
+}
+
+#mapa-img {
+    width: 85%;
+}
+
+.img-est-sala {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.img-est-sala img {
+    width: 30%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    margin-bottom: 20px;
+}
+
+.p-info {
+    margin: 10px;
+    text-align: justify;
+    font-size: large;
+    font-weight: 500;
 }
 
 .container {
