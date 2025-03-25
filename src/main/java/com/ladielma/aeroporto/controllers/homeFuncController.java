@@ -40,7 +40,7 @@ public class homeFuncController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Voo não encontrado!");
     }
 
-    @PostMapping("/homeFunc/atualizarStatus")
+    @PostMapping()
     public ResponseEntity<Map<String, Object>> atualizarStatus(@RequestBody Map<String, String> request) {
     String id = request.get("id");
     String novoStatusStr = request.get("novoStatus");

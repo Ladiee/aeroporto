@@ -101,10 +101,11 @@
                         <a href="#" th:attr="onclick='toggleDropdown(\'' + ${voo.idVoo} + '\')'">Editar</a> /
                         <a href="#" th:attr="onclick='confirmDelete(event, \'' + ${voo.idVoo} + '\')'">Deletar</a>
 
+                      
 
                         <!-- Dropdown para editar status -->
                          <div th:id="'dropdown-' + ${voo.idVoo}" class="hidden bg-gray-100 p-2 rounded">
-                            <form th:action="@{/homeFunc}" method="post">
+                            <form th:action="@{/homeFunc}" onsubmit="atualizarStatus(event, this)">
                                 <input type="hidden" name="id" th:value="${voo.idVoo}" />
                                 <select name="novoStatus">
                                     <option th:each="status : ${statusList}" th:value="${status}" th:text="${status}"></option>
@@ -187,7 +188,7 @@
             const id = form.querySelector('input[name="id"]').value;
             const novoStatus = form.querySelector('select[name="novoStatus"]').value;
             console.log("AB", id, novoStatus);
-            fetch('/homeFunc/atualizarStatus', {
+            fetch("http://localhost:8080/homeFunc", {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id: id, novoStatus: novoStatus })
