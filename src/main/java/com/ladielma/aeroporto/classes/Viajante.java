@@ -15,4 +15,13 @@ public class Viajante extends Pessoa {
         this.passaporte = passaporte;
         this.status = status;
     }
+    @Override
+    public void exibirInformacoes() {
+        System.out.println("Viajante: " + super.getNome());
+    }
+
+    @Override
+    public String getTipoPessoa() {
+        return "Viajante";
+    }
 }

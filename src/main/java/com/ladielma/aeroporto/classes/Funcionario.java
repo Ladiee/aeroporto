@@ -49,4 +49,14 @@ public class Funcionario extends Usuario {
     public void cancelarVoo(Voo voo) {
         // Implementação para cancelar um voo
     }
+
+    @Override
+    public void exibirInformacoes() {
+        System.out.println("Funcionário: " + super.getNome());
+    }
+
+    @Override
+    public String getTipoPessoa() {
+        return "Funcionario";
+    }
 }

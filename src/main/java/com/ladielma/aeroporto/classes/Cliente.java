@@ -60,4 +60,14 @@ public class Cliente extends Usuario {
     public void alterarInformacoes() {
         // Implementação para alterar informações do cliente
     }
+
+    @Override
+    public void exibirInformacoes() {
+        System.out.println("Cliente: " + super.getNome());
+    }
+
+    @Override
+    public String getTipoPessoa() {
+        return "Cliente";
+    }
 }

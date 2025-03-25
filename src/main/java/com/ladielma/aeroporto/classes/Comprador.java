@@ -10,4 +10,14 @@ public class Comprador extends Pessoa {
 
     public String getEndereco() { return endereco; }
     public void setEndereco(String endereco) { this.endereco = endereco; }
+
+    @Override
+    public void exibirInformacoes() {
+        System.out.println("Comprador: " + super.getNome());
+    }
+
+    @Override
+    public String getTipoPessoa() {
+        return "Comprador";
+    }
 }

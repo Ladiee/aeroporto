@@ -2,7 +2,7 @@ package com.ladielma.aeroporto.classes;
 
 import java.util.ArrayList;
 
-public class Pessoa {
+public abstract class Pessoa {
     private String nome;
     private String email;
     private String telefone;
@@ -12,6 +12,9 @@ public class Pessoa {
         this.email = email;
         this.telefone = telefone;
     }
+
+    public abstract void exibirInformacoes(); // Método abstrato 1
+    public abstract String getTipoPessoa();   // Método abstrato 2
 
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }

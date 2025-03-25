@@ -33,5 +33,15 @@ public class Usuario extends Pessoa {
     public static boolean verificarSenha(String senha, String hash) {
         return BCrypt.checkpw(senha, hash);
     }
+    
+    @Override
+    public void exibirInformacoes() {
+        System.out.println("Usuário: " + super.getNome());
+    }
+
+    @Override
+    public String getTipoPessoa() {
+        return "Usuario";
+    }
 
 }
