@@ -2,7 +2,7 @@ package com.ladielma.aeroporto.classes;
 
 import java.util.ArrayList;
 
-public class Aviao {
+public class Aviao implements Exibivel {
     private String modelo;
     private String fabricante;
     private int qtdAssentos;
@@ -30,6 +30,11 @@ public class Aviao {
             } 
         }
         return false; 
+    }
+    
+    @Override
+    public void exibirDados() {
+        System.out.println("Avião: " + modelo + " | Companhia: " + fabricante);
     }
 
     public void setModelo(String modelo) {
