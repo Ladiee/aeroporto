@@ -66,6 +66,7 @@ public class PagesController {
         boolean func = !Funcionario.getFuncionarios().isEmpty();
         if (func) {
             model.addAttribute("funcionarioNome", Funcionario.getFuncionarios().get(0).getNome());
+            model.addAttribute("funcionarioEmail", Funcionario.getFuncionarios().get(0).getEmail());
         } else {
             model.addAttribute("funcionarioNome", null);
         }
