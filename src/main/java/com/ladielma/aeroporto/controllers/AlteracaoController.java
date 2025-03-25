@@ -19,21 +19,20 @@ import com.ladielma.aeroporto.classes.Cliente;
 @RestController
 @RequestMapping("/alterar-dados")
 public class AlteracaoController {
+    public final String NOME_REGEX = "^[A-Z][a-z]{2,}\\s[A-Z][a-z]{2,}$";
+    public final String TELE_REGEX = "^\\(\\d{2}\\) \\d{5}-\\d{4}$";
 
     @PostMapping
     public RedirectView alterar(@RequestParam String nome, @RequestParam String telefone, @RequestParam String email,
             RedirectAttributes red) {
         System.out.println(nome);
 
-        String nomeRegex = "^[A-Z][a-z]{2,}\\s[A-Z][a-z]{2,}$";
-        String teleRegex = "^\\(\\d{2}\\) \\d{5}-\\d{4}$";
-
-        if (!validarNome(nomeRegex, nome)) {
+        if (!validarNome(NOME_REGEX, nome)) {
             red.addFlashAttribute("erro", "Nome inválido! Exemplo: Nome Sobrenome");
             return new RedirectView("/alterar-dados");
         }
 
-        if (!validarTelefone(teleRegex, telefone)) {
+        if (!validarTelefone(TELE_REGEX, telefone)) {
             red.addFlashAttribute("erro", "Telefone inválido! Exemplo: (00) 00000-0000");
             return new RedirectView("/alterar-dados");
         }

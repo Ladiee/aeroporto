@@ -16,6 +16,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 // import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.ladielma.aeroporto.classes.Usuario;
+
 // import com.ladielma.aeroporto.classes.Cliente;
 
 // import java.io.*;
@@ -25,21 +27,21 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequestMapping("/redefinir-senha")
 public class RedefinirSenhaController {
 
+    public final String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+    public final String PASS_REGEX = "^(?=.*[A-Z])(?=.*\\d)(?=.*[\\W_]).{6,}$";
+
     @PostMapping
     public RedirectView redefinirSenha(@RequestParam String email, @RequestParam String password,
             @RequestParam String confirmPassword,
             RedirectAttributes red) {
         System.out.println(email);
 
-        String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
-        String passRegex = "^(?=.*[A-Z])(?=.*\\d)(?=.*[\\W_]).{6,}$";
-
-        if (!validarEmail(emailRegex, email)) {
+        if (!validarEmail(EMAIL_REGEX, email)) {
             red.addFlashAttribute("erro", "Email inválido! Exemplo: exemplo@gmail.com");
             return new RedirectView("/redefinir-senha");
         }
 
-        if (!validarSenha(passRegex, password)) {
+        if (!validarSenha(PASS_REGEX, password)) {
             red.addFlashAttribute("erro",
                     "Senha inválida! A senha deve conter no mínimo 6 caracteres, uma letra maiúscula, um número e um caractere especial.");
             return new RedirectView("/redefinir-senha");
@@ -50,6 +52,8 @@ public class RedefinirSenhaController {
             return new RedirectView("/redefinir-senha");
         }
 
+        String senha = Usuario.hashSenha(password);
+
         try {
             Path caminhoArquivo = Paths.get("src/main/resources/clientes.txt");
             List<String> linhas = Files.readAllLines(caminhoArquivo); // Lê todas as linhas do arquivo
@@ -59,7 +63,7 @@ public class RedefinirSenhaController {
                 String[] dados = line.split(", ");
                 if (dados[0].equals(email)) {
                     // Atualiza os dados do cliente
-                    dados[7] = password;
+                    dados[7] = senha;
                 }
                 // Adiciona a linha (modificada ou não) na nova lista
                 novasLinhas.add(String.join(", ", dados));

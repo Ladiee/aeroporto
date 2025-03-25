@@ -13,14 +13,15 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.ladielma.aeroporto.classes.Cliente;
 import com.ladielma.aeroporto.classes.Funcionario;
+import com.ladielma.aeroporto.classes.Usuario;
 
 @RestController
 @RequestMapping("/login")
 public class LoginController {
 
     @PostMapping
-    public RedirectView acesso(@RequestParam String email, @RequestParam String password, RedirectAttributes red) { 
-        
+    public RedirectView acesso(@RequestParam String email, @RequestParam String password, RedirectAttributes red) {
+
         try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/clientes.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -35,7 +36,7 @@ public class LoginController {
                         return new RedirectView("/homeFunc");
 
                     }
-                } else if (dados[0].equals(email) && dados[7].equals(password)) {
+                } else if (dados[0].equals(email) && Usuario.verificarSenha(password, dados[7])) {
 
                     Cliente cliente = new Cliente(dados[1], dados[0], dados[2], dados[1], dados[7], dados[4], dados[3],
                             dados[6], null, 0);

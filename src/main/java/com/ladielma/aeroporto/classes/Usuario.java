@@ -10,7 +10,7 @@ public class Usuario extends Pessoa {
         super(nome, email, telefone);
         this.nomeUsuario = nomeUsuario;
         this.senha = hashSenha(senha);
-    }  
+    }
 
     public String getName() {
         return this.nomeUsuario;
@@ -25,12 +25,12 @@ public class Usuario extends Pessoa {
     }
 
     // Gera o hash da senha
-    private static String hashSenha(String senha) {
+    public static String hashSenha(String senha) {
         return BCrypt.hashpw(senha, BCrypt.gensalt());
     }
 
     // Verifica se a senha inserida corresponde ao hash armazenado
-    private static boolean verificarSenha(String senha, String hash) {
+    public static boolean verificarSenha(String senha, String hash) {
         return BCrypt.checkpw(senha, hash);
     }
 

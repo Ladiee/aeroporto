@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.ladielma.aeroporto.classes.Usuario;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -94,9 +96,11 @@ public class SignupController {
             return new RedirectView("/signup");
         }
 
+        String hashSenha = Usuario.hashSenha(passwordS);
+
         String dados = String.format("%s, %s, %s, %s, %s, %s, %s, %s%n",
                 emailS, nomeUsuario, telefone, cpf,
-                dataDeNascimento, sexo, nacionalidade, passwordS);
+                dataDeNascimento, sexo, nacionalidade, hashSenha);
 
         try (FileWriter writer = new FileWriter("src/main/resources/clientes.txt",
                 true)) {
