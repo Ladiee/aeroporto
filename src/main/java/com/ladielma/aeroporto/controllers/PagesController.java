@@ -60,6 +60,7 @@ public class PagesController {
 
     @GetMapping("/homeFunc")
     public String funcionarioHome(Model model) {
+        model.addAttribute("statusList", Voo.StatusVoo.values());
         model.addAttribute("voos", Voo.getVoos());
         model.addAttribute("companhias", Companhia.getCompanhias());
         boolean func = !Funcionario.getFuncionarios().isEmpty();
