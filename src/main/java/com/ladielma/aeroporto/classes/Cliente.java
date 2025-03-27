@@ -11,7 +11,8 @@ public class Cliente extends Usuario {
     private static ArrayList<Cliente> clientes = new ArrayList<>();
     private int pontos;
 
-    public Cliente(String nome, String email, String telefone, String nomeUsuario, String senha, String dataNascimento, String cpf, String nacionalidade, String sexo, int pontos) {
+    public Cliente(String nome, String email, String telefone, String nomeUsuario, String senha, String dataNascimento,
+            String cpf, String nacionalidade, String sexo, int pontos) {
         super(nome, email, telefone, nomeUsuario, senha);
         this.dataNascimento = dataNascimento;
         this.cpf = cpf;
@@ -19,6 +20,14 @@ public class Cliente extends Usuario {
         this.sexo = sexo;
         this.viagens = new ArrayList<>();
         this.pontos = pontos;
+    }
+
+    public ArrayList<Reserva> getViagens() {
+        return viagens;
+    }
+
+    public void adicionarReserva(Reserva reserva) {
+        viagens.add(reserva);
     }
 
     public void adicionarCliente(Cliente cliente) {

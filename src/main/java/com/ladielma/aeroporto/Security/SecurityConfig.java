@@ -1,4 +1,4 @@
-package com.ladielma.aeroporto.security;
+package com.ladielma.aeroporto.Security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +23,8 @@ public class SecurityConfig {
                             .requestMatchers("/", "/img/**", "/signup", "/styles/**", "/js/**", "/alterar-dados",
                                     "cadastroVoo/**",
                                     "/cadastroVoo", "/homeFunc", "/homeFunc/**", "/favicon.ico",
-                                    "/login", "/pagamento", "/assentos", "/redefinir-senha", "voos", "sobre_passagem")
+                                    "/login", "/pagamento", "/assentos", "/redefinir-senha", "voos", "/sobre_passagem",
+                                    "/sobre_passagem/**", "/reserva")
                             .permitAll()
                             .requestMatchers(HttpMethod.POST, "/cadastroVoo", "/cadastroVoo/**")
                             .permitAll()

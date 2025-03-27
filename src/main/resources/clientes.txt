@@ -18,3 +18,4 @@ rafa@gmail.com, Rafa Malcher, (22) 22222-2222, 123.456.789-00, 2025-03-01, 1, Br
 Anna@email.com, Anna Clara, (66) 66666-6688, 666.666.666-66, 2025-03-08, 2, Brasileiro, Aninha#10
 marcelinho@gmail.com, Marcelinho Dois, (51) 51515-1515, 515.151.515-15, 2025-03-07, 1, Brasileiro, Marcel0#
 Marcelo@teste.com, Marc Test, (12) 31431-4214, 234.102.958-10, 2025-03-01, 1, Brasileiro, $2a$10$zEJmh9Rc.MtDikpaA6tQAOLjbjl6vTMNIydXxfeXqRhamy9IcXj9e
+Marcelo@dois.com, Marcelo Dois, (47) 28347-5835, 193.258.421-57, 2025-03-15, 1, Brasileiro, $2a$10$tgrLKm1/ifWkOmh.kLS0q.WUOrMAtjfoHCKjgxQxiWAdHlXPsuDGS

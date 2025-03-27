@@ -148,7 +148,29 @@ public class PagesController {
     }
 
     @GetMapping("/sobre_passagem")
-    public String sobrePassagem() {
+    public String sobrePassagem(Model model) {
+        model.addAttribute("voos", Voo.getVoos());
+        model.addAttribute("cliente", !Cliente.getClientes().isEmpty());
         return "sobre_passagem";
+    }
+
+    @GetMapping("/reserva")
+    public String reserva(Model model) {
+
+        boolean clienteLogado = !Cliente.getClientes().isEmpty();
+        model.addAttribute("clienteLogado", clienteLogado);
+        if (clienteLogado) {
+            model.addAttribute("voos", Cliente.getClientes().get(0).getViagens());
+            System.out.println("Quantidade de viagens: " + Cliente.getClientes().get(0).getViagens().size());
+            System.out.println("clienteNome" + Cliente.getClientes().get(0).getNome());
+            model.addAttribute("clienteNome", Cliente.getClientes().get(0).getNome());
+            // model.addAttribute("clientePontos",
+            // Cliente.getClientes().get(0).getPontos());
+
+        } else {
+            model.addAttribute("clienteNome", null);
+        }
+
+        return "reserva";
     }
 }
